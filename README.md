@@ -1,5 +1,5 @@
 # Marlin 2.0.x для Two Trees Sapphire Pro
-## Версия глючит! Ставить на свой страх и риск!
+# Версия глючит! Ставить на свой СТРАХ и РИСК!
 
 ### Версия марлин - 2.0.x bugfix, взята 03.10.2019
 ![sapphire-pro-0-marlin-boot](Docs/hints/sapphire-pro-0-marlin-boot1.jpg?raw=true)
