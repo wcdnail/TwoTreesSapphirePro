@@ -1,4 +1,5 @@
-# Marlin 2.0.x 
+# Marlin 2.0.x для Two Trees Sapphire Pro
+## Версия глючит! Ставить на свой страх и риск!
 
 ### Версия марлин - 2.0.x bugfix, взята 03.10.2019
 ![sapphire-pro-0-marlin-boot](Docs/hints/sapphire-pro-0-marlin-boot1.jpg?raw=true)
@@ -8,7 +9,7 @@
 [Инструкция по установке Visual Studio Code + PlatformIO](https://docs.platformio.org/en/latest/ide/vscode.html)<br/>
 
 ### Прошивка SapphirePro:
-* После успешной сборки скопировать файл `.pio\build\mks_robin_nano\Robin_nano.bin` на sd карту
+* После успешной сборки скопировать файл `Marlin2\.pio\build\mks_robin_nano\Robin_nano.bin` на sd карту
 * Установить sd карту в принтер
 * Включить/перезагрузить принтер
 * Дождаться обновления
