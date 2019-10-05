@@ -1,0 +1,23 @@
+10:08:28.889 : echo:  G21    ; Units in mm (mm)
+10:08:28.890 : echo:  M149 C ; Units in Celsius
+10:08:28.891 : echo:Filament settings: Disabled
+10:08:28.892 : echo:  M200 D1.75
+10:08:28.893 : echo:  M200 D0
+10:08:28.893 : echo:Steps per unit:
+10:08:28.895 : echo:  M92 X80.30 Y80.30 Z1600.00 E412.00
+10:08:28.897 : echo:Maximum feedrates (units/s):
+10:08:28.898 : echo:  M203 X200.00 Y200.00 Z4.00 E70.00
+10:08:28.899 : echo:Maximum Acceleration (units/s2):
+10:08:28.902 : echo:  M201 X3000.00 Y3000.00 Z100.00 E1000.00
+10:08:28.904 : echo:Acceleration (units/s2): P<print_accel> R<retract_accel> T<travel_accel>
+10:08:28.906 : echo:  M204 P3000.00 R3000.00 T3000.00
+10:08:28.911 : echo:Advanced: B<min_segment_time_us> S<min_feedrate> T<min_travel_feedrate> X<max_x_jerk> Y<max_y_jerk> Z<max_z_jerk> E<max_e_jerk>
+10:08:28.913 : echo:  M205 B20000.00 S0.00 T0.00 X20.00 Y20.00 Z0.40 E5.00
+10:08:28.915 : echo:Home offset:
+10:08:28.916 : echo:  M206 X0.00 Y0.00 Z0.00
+10:08:28.917 : echo:Material heatup parameters:
+10:08:28.918 : echo:  M145 S0 H215 B75 F0
+10:08:28.920 : echo:  M145 S1 H230 B90 F0
+10:08:28.920 : echo:PID settings:
+10:08:28.921 : echo:  M301 P22.20 I1.08 D114.00
+10:08:28.923 : echo:  M304 P10.00 I0.02 D305.40

@@ -1,0 +1,32 @@
+08:37:15.982 : echo:  G21    ; Units in mm
+08:37:15.985 : echo:Filament settings: Disabled
+08:37:15.987 : echo:  M200 D3.00
+08:37:15.990 : echo:  M200 T1 D3.00
+08:37:15.990 : echo:  M200 D0
+08:37:15.993 : echo:Steps per unit:
+08:37:15.996 : echo:  M92 X80.30 Y80.30 Z1600.00
+08:37:15.999 : echo:  M92 T0 E412.00
+08:37:15.999 : M92 T1 E90.00
+08:37:16.001 : echo:Maximum feedrates (units/s):
+08:37:16.004 : echo:  M203 X200.00 Y200.00 Z4.00
+08:37:16.007 : echo:  M203 T0 E70.00
+08:37:16.007 : M203 T1 E70.00
+08:37:16.012 : echo:Maximum Acceleration (units/s2):
+08:37:16.013 : echo:  M201 X1000 Y1000 Z100
+08:37:16.015 : echo:  M201 T0 E1000
+08:37:16.018 : M201 T1 E1000
+08:37:16.024 : echo:Acceleration (units/s2): P<print_accel> R<retract_accel> T<travel_accel>
+08:37:16.026 : echo:  M204 P4000.00 R1000.00 T4000.00
+08:37:16.038 : echo:Advanced: S<min_feedrate> T<min_travel_feedrate> B<min_segment_time_us> X<max_xy_jerk> Z<max_z_jerk> E<max_e_jerk>
+08:37:16.043 : echo:  M205 S0.00 T0.00 B20000 X20.00 Y20.00 Z0.40 E5.00
+08:37:16.043 : echo:Home offset:
+08:37:16.046 : echo:  M206 X0.00 Y0.00 Z0.00
+08:37:16.049 : echo:Hotend offsets:
+08:37:16.051 : echo:  M218 T1 X20.00 Y5.00
+08:37:16.051 : echo:  M420 S0
+08:37:16.054 : echo:Endstop adjustment:
+08:37:16.057 : echo:  M666 Z0.00
+08:37:16.057 : echo:PID settings:
+08:37:16.060 : echo:  M301 P8.41 I0.41 D43.21
+08:37:16.063 : echo:Z-Probe Offset (mm):
+08:37:16.064 : echo:  M851 Z0.00
