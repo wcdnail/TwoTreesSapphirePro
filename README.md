@@ -26,7 +26,7 @@
   Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS|Configuration.h|1322|MANUAL_Z_HOME_POS: ВЫКЛ
   Настройка пред-нагрева PREHEAT_* |Configuration.h|1458|PREHEAT_1_* заменен на PET-G 215/75
   Парковка хот-энда NOZZLE_PARK_FEATURE|Configuration.h|1479|
-  Язык UI LCD_LANGUAGE|Configuration.h|1600|Русский
+  Язык интерфейса LCD_LANGUAGE|Configuration.h|1600|Русский
   M73 прогресс LCD_SET_PROGRESS_MANUALLY|Configuration_adv.h|888|
   Отображение статуса|Configuration_adv.h|1143|
   Linear Advanced|Configuration_adv.h|1329|
