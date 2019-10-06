@@ -25,6 +25,7 @@
   Калибровка стола LCD_BED_LEVELING|Configuration.h|1290|
   Калибровка стола LEVEL_BED_CORNERS|Configuration.h|1299|
   Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS|Configuration.h|1322|MANUAL_Z_HOME_POS: ВЫКЛ
+  Настройка пред-нагрева PREHEAT_* |Configuration.h|1458|PREHEAT_1_* заменен на PET-G 215/75
   Парковка хот-энда NOZZLE_PARK_FEATURE|Configuration.h|1479|
   M73 прогресс LCD_SET_PROGRESS_MANUALLY|Configuration_adv.h|888|
   Отображение статуса|Configuration_adv.h|1143|
