@@ -14,26 +14,30 @@
 * Дождаться обновления
 
 ### Конфигурация прошивки
-  Конфигурация|Файл|Строка|Примечание
-  ------------|----|------|----------
-  PID|Configuration.h|483|
-  Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT|Configuration.h|730|
-  Размер стола|Configuration.h|1070|
-  Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR|Configuration.h|1120|ВЫКЛ
-  Калибровка стола MESH_BED_LEVELING|Configuration.h|1186|
-  Калибровка стола LCD_BED_LEVELING|Configuration.h|1290|
-  Калибровка стола LEVEL_BED_CORNERS|Configuration.h|1299|
-  Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS|Configuration.h|1322|MANUAL_Z_HOME_POS: ВЫКЛ
-  Настройка пред-нагрева PREHEAT_* |Configuration.h|1458|PREHEAT_1_* заменен на PET-G 215/75
-  Парковка хот-энда NOZZLE_PARK_FEATURE|Configuration.h|1479|
-  Язык интерфейса LCD_LANGUAGE|Configuration.h|1600|Русский
-  Проверка целостности чтения файлов SD_CHECK_AND_RETRY|Configuration.h|1657|
-  "Пищалка" SPEAKER|Configuration.h|1728|При включении зависает!
-  M73 прогресс LCD_SET_PROGRESS_MANUALLY|Configuration_adv.h|888|
-  Отображение статуса|Configuration_adv.h|1143|
-  Linear Advanced|Configuration_adv.h|1329|
-  Ретракт|Configuration_adv.h|1580|пока ВЫКЛ
-  Расширенная пауза|Configuration_adv.h|1639|
+#### Configuration.h|
+  Конфигурация|Строка|Примечание
+  ------------|------|----------
+  PID|483|
+  Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT|730|
+  Размер стола|1070|
+  Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR|1120|ВЫКЛ
+  Калибровка стола MESH_BED_LEVELING|1186|
+  Калибровка стола LCD_BED_LEVELING|1290|
+  Калибровка стола LEVEL_BED_CORNERS|1299|
+  Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS|1322|MANUAL_Z_HOME_POS: ВЫКЛ
+  Настройка пред-нагрева PREHEAT_* |1458|PREHEAT_1_* заменен на PET-G 215/75
+  Парковка хот-энда NOZZLE_PARK_FEATURE|1479|
+  Язык интерфейса LCD_LANGUAGE|1600|Русский
+  Проверка целостности чтения файлов SD_CHECK_AND_RETRY|1657|
+  "Пищалка" SPEAKER|1728|При включении SPEAKER, прошивка зависает!
+#### Configuration_adv.h
+  Конфигурация|Строка|Примечание
+  ------------|------|----------
+  M73 прогресс LCD_SET_PROGRESS_MANUALLY|888|
+  Отображение статуса|1143|
+  Linear Advanced|1329|
+  Ретракт|1580|пока ВЫКЛ
+  Расширенная пауза|1639|
 
 ### Графика
 [Конвертер графики](http://marlinfw.org/tools/u8glib/converter.html)<br/>
