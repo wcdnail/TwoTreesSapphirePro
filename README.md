@@ -27,6 +27,8 @@
   Настройка пред-нагрева PREHEAT_* |Configuration.h|1458|PREHEAT_1_* заменен на PET-G 215/75
   Парковка хот-энда NOZZLE_PARK_FEATURE|Configuration.h|1479|
   Язык интерфейса LCD_LANGUAGE|Configuration.h|1600|Русский
+  Проверка целостности чтения файлов SD_CHECK_AND_RETRY|Configuration.h|1657|
+  "Пищалка" SPEAKER|Configuration.h|1728|При включении зависает!
   M73 прогресс LCD_SET_PROGRESS_MANUALLY|Configuration_adv.h|888|
   Отображение статуса|Configuration_adv.h|1143|
   Linear Advanced|Configuration_adv.h|1329|
