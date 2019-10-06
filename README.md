@@ -1,4 +1,5 @@
 ![alert-banner](Docs/repo-banner.png?raw=true "Версия сырая! Ставить на свой СТРАХ и РИСК!")
+* Произвольное движение каретки при печати проявляется после подключения принтера по USB, предположительно это не связанно с Marlin
 
 ### Версия марлин - 2.0.x bugfix, взята 03.10.2019
 ![sapphire-pro-0-marlin-boot](Docs/hints/sapphire-pro-0-marlin-boot1.jpg?raw=true)
