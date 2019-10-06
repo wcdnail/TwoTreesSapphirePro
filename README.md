@@ -21,8 +21,9 @@
   Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT|Marlin2\Marlin\Configuration.h|730|
   Размер стола|Marlin2\Marlin\Configuration.h|1070|
   Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR|Marlin2\Marlin\Configuration.h|1120|ВЫКЛ
-  MESH_BED_LEVELING|Marlin2\Marlin\Configuration.h|1186|
-  LCD_BED_LEVELING|Marlin2\Marlin\Configuration.h|1290|
+  Калибровка стола MESH_BED_LEVELING|Marlin2\Marlin\Configuration.h|1186|
+  Калибровка стола LCD_BED_LEVELING|Marlin2\Marlin\Configuration.h|1290|
+  Калибровка стола LEVEL_BED_CORNERS|Marlin2\Marlin\Configuration.h|1299|
   Home offsets|Marlin2\Marlin\Configuration.h|1322|
   Парковка хот-энда NOZZLE_PARK_FEATURE|Marlin2\Marlin\Configuration.h|1479|
   M73 прогресс LCD_SET_PROGRESS_MANUALLY|Marlin2\Marlin\Configuration_adv.h|888|
