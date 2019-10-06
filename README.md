@@ -18,6 +18,7 @@
   Конфигурация|Строка|Примечание
   ------------|------|----------
   PID|483|
+  EXTRUDE_MAXLENGTH|569|
   Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT|730|
   Размер стола|1070|
   Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR|1120|ВЫКЛ
@@ -39,6 +40,7 @@
   Linear Advanced|1329|
   Ретракт|1580|пока ВЫКЛ
   Расширенная пауза|1639|
+  FILAMENT_CHANGE_UNLOAD_LENGTH|1646|
 
 ### Графика
 [Конвертер графики](http://marlinfw.org/tools/u8glib/converter.html)<br/>
