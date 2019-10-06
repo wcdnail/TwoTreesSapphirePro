@@ -2,7 +2,6 @@
 * Произвольное движение каретки при печати появляется после подключения принтера по USB (не всегда), предположительно это не связанно с Marlin
 
 ### Версия марлин - 2.0.x bugfix, взята 03.10.2019
-![sapphire-pro-0-marlin-boot](Docs/hints/sapphire-pro-0-marlin-boot1.jpg?raw=true)
 ![sapphire-pro-0-marlin-status](Docs/hints/sapphire-pro-2-marlin-status1.jpg?raw=true)
 
 Собирать лучше всего с помощью Visual Studio Code + PlatformIO<br/>
@@ -27,6 +26,7 @@
   Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS|Configuration.h|1322|MANUAL_Z_HOME_POS: ВЫКЛ
   Настройка пред-нагрева PREHEAT_* |Configuration.h|1458|PREHEAT_1_* заменен на PET-G 215/75
   Парковка хот-энда NOZZLE_PARK_FEATURE|Configuration.h|1479|
+  Язык UI LCD_LANGUAGE|Configuration.h|1600|Русский
   M73 прогресс LCD_SET_PROGRESS_MANUALLY|Configuration_adv.h|888|
   Отображение статуса|Configuration_adv.h|1143|
   Linear Advanced|Configuration_adv.h|1329|
