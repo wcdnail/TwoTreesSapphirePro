@@ -25,7 +25,7 @@
   Калибровка стола LCD_BED_LEVELING|1290|
   Калибровка стола LEVEL_BED_CORNERS|1299|
   Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS|1322|MANUAL_Z_HOME_POS: ВЫКЛ
-  Настройка пред-нагрева PREHEAT_* |1458|PREHEAT_1_* заменен на PET-G 215/75
+  Настройка пред-нагрева PREHEAT_* |1458|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
   Парковка хот-энда NOZZLE_PARK_FEATURE|1479|
   Язык интерфейса LCD_LANGUAGE|1600|Русский
   Проверка целостности чтения файлов SD_CHECK_AND_RETRY|1657|
