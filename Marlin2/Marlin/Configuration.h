@@ -2082,7 +2082,7 @@
 //
 #define TOUCH_BUTTONS
 #if ENABLED(TOUCH_BUTTONS)
-  #define BUTTON_DELAY_EDIT 100 // (ms) Button repeat delay for edit screens
+  #define BUTTON_DELAY_EDIT 64  // (ms) Button repeat delay for edit screens
   #define BUTTON_DELAY_MENU 150 // (ms) Button repeat delay for menus
 
   /* MKS Robin TFT v2.0 */
