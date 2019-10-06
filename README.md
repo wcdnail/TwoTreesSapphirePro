@@ -1,7 +1,4 @@
-# Marlin 2.0.x для Two Trees Sapphire Pro
-# Специально для энтузиастов!
-# Версия сырая! Ставить на свой СТРАХ и РИСК!
-## Косяки при печати проявляются после подключения принтера по USB
+![alert-banner](Docs/repo-banner.png?raw=true "Версия сырая! Ставить на свой СТРАХ и РИСК!")
 
 ### Версия марлин - 2.0.x bugfix, взята 03.10.2019
 ![sapphire-pro-0-marlin-boot](Docs/hints/sapphire-pro-0-marlin-boot1.jpg?raw=true)
