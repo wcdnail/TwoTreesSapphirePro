@@ -65,7 +65,9 @@
 
 # Железо SapphirePro
 
-Дисплей - MKS TFT35 (3.5" (~9см)) 480*320<br/>
+* Дисплей - MKS TFT35 (3.5" (~9см)) 480*320<br/>
+  Нашел нормальную реализацию масштабирования тут - https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT<br/>
+  https://escope.de/posts/sapphire-pro-marlin/<br/>
 
 # Стоковые прошивки
 `StockFirmwares`

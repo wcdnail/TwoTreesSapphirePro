@@ -211,11 +211,13 @@
 // LCD_PIXEL_OFFSET_X + (LCD_PIXEL_WIDTH * 2) + LCD_PIXEL_OFFSET_X
 #if ENABLED(FSMC_GRAPHICAL_TFT)
   #ifdef MKS_ROBIN_NANO_TFT35
+    //@ 3.5" TFT
     #define LCD_FULL_PIXEL_WIDTH  480
-    #define LCD_PIXEL_OFFSET_X    112
+    #define LCD_PIXEL_OFFSET_X    48
     #define LCD_FULL_PIXEL_HEIGHT 320
-    #define LCD_PIXEL_OFFSET_Y    96
+    #define LCD_PIXEL_OFFSET_Y    32
   #else
+    //@ 2.8" TFT
     #define LCD_FULL_PIXEL_WIDTH  320
     #define LCD_PIXEL_OFFSET_X    32
     #define LCD_FULL_PIXEL_HEIGHT 240
