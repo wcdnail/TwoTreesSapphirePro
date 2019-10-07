@@ -2,7 +2,7 @@
 * Баг №1 - произвольное движение каретки при печати
 
 ### Версия марлин - 2.0.x bugfix, взята 03.10.2019
-![sapphire-pro-0-marlin-status](Docs/hints/sapphire-pro-2-marlin-status1.jpg?raw=true)
+![sapphire-pro-1-marlin-status](Docs/hints-1/status-screen.jpg?raw=true)
 
 Собирать лучше всего с помощью Visual Studio Code + PlatformIO<br/>
 [Инструкция по установке Visual Studio Code + PlatformIO](https://docs.platformio.org/en/latest/ide/vscode.html)<br/>
