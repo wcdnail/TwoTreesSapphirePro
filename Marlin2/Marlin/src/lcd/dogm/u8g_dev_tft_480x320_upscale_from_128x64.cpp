@@ -89,10 +89,9 @@
 #include "../../inc/MarlinConfig.h"
 
 #if HAS_GRAPHICAL_LCD && PIN_EXISTS(FSMC_CS)
-
 #include "HAL_LCD_com_defines.h"
 #include "ultralcd_DOGM.h"
-
+#include "tft_color_scheme.h"
 #include <string.h>
 
 #if ENABLED(LCD_USE_DMA_FSMC)
@@ -165,55 +164,6 @@ x ||^24    ^136   ^248   ^360   ||/___ y = 301 px
 
 #define BUTTON_Y_LO 242
 #define BUTTON_Y_HI (BUTTON_Y_LO + 3 * BUTTON_SIZE_Y -1)
-
-
-
-// see https://ee-programming-notepad.blogspot.com/2016/10/16-bit-color-generator-picker.html
-
-#define COLOR_BLACK       0x0000  // #000000
-#define COLOR_WHITE       0xFFFF  // #FFFFFF
-#define COLOR_SILVER      0xC618  // #C0C0C0
-#define COLOR_GREY        0x7BEF  // #808080
-#define COLOR_DARKGREY    0x4208  // #404040
-#define COLOR_DARKGREY2   0x39E7  // #303030
-#define COLOR_DARK        0x0003  // Some dark color
-
-#define COLOR_RED         0xF800  // #FF0000
-#define COLOR_LIME        0x7E00  // #00FF00
-#define COLOR_BLUE        0x001F  // #0000FF
-#define COLOR_YELLOW      0xFFE0  // #FFFF00
-#define COLOR_MAGENTA     0xF81F  // #FF00FF
-#define COLOR_FUCHSIA     0xF81F  // #FF00FF
-#define COLOR_CYAN        0x07FF  // #00FFFF
-#define COLOR_AQUA        0x07FF  // #00FFFF
-
-#define COLOR_MAROON      0x7800  // #800000
-#define COLOR_GREEN       0x03E0  // #008000
-#define COLOR_NAVY        0x000F  // #000080
-#define COLOR_OLIVE       0x8400  // #808000
-#define COLOR_PURPLE      0x8010  // #800080
-#define COLOR_TEAL        0x0410  // #008080
-
-#define COLOR_ORANGE      0xFC00  // #FF7F00
-
-#ifndef TFT_MARLINUI_COLOR
-  #define TFT_MARLINUI_COLOR COLOR_SILVER // 0xFFE7
-#endif
-#ifndef TFT_MARLINBG_COLOR
-  #define TFT_MARLINBG_COLOR 0x01F4
-#endif
-#ifndef TFT_DISABLED_COLOR
-  #define TFT_DISABLED_COLOR COLOR_DARK
-#endif
-#ifndef TFT_BTCANCEL_COLOR
-  #define TFT_BTCANCEL_COLOR COLOR_MAGENTA
-#endif
-#ifndef TFT_BTARROWS_COLOR
-  #define TFT_BTARROWS_COLOR COLOR_AQUA
-#endif
-#ifndef TFT_BTOKMENU_COLOR
-  #define TFT_BTOKMENU_COLOR COLOR_YELLOW
-#endif
 
 static uint32_t lcd_id = 0;
 
@@ -578,24 +528,6 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
 
       // bottom line and buttons
       #if ENABLED(TOUCH_BUTTONS)
-
-        // why the linewrites
-
-        // #ifdef LCD_USE_DMA_FSMC
-        //   u8g_WriteEscSeqP(u8g, dev, separation_line_sequence_left);
-        //   LCD_IO_WriteMultiple(TFT_DISABLED_COLOR, 300);
-        //   u8g_WriteEscSeqP(u8g, dev, separation_line_sequence_right);
-        //   LCD_IO_WriteMultiple(TFT_DISABLED_COLOR, 300);
-        // #else
-        //   memset2(buffer, TFT_DISABLED_COLOR, 150);
-        //   u8g_WriteEscSeqP(u8g, dev, separation_line_sequence_left);
-        //   for (uint8_t i = 4; i--;)
-        //     u8g_WriteSequence(u8g, dev, 150, (uint8_t *)buffer);
-        //   u8g_WriteEscSeqP(u8g, dev, separation_line_sequence_right);
-        //   for (uint8_t i = 4; i--;)
-        //     u8g_WriteSequence(u8g, dev, 150, (uint8_t *)buffer);
-        // #endif
-
         //@ check button sizes
         u8g_WriteEscSeqP(u8g, dev, buttonD_sequence);
         drawImage(buttonD, u8g, dev, 32, 20, TFT_BTCANCEL_COLOR);

@@ -61,7 +61,7 @@
 
 #include "HAL_LCD_com_defines.h"
 #include "ultralcd_DOGM.h"
-
+#include "tft_color_scheme.h"
 #include <string.h>
 
 #if ENABLED(LCD_USE_DMA_FSMC)
