@@ -1077,7 +1077,7 @@
 #define Y_MIN_POS 0
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
-#define Y_MAX_POS X_BED_SIZE
+#define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 200
 
 /**
@@ -2082,7 +2082,7 @@
 //
 #define TOUCH_BUTTONS
 #if ENABLED(TOUCH_BUTTONS)
-  #define BUTTON_DELAY_EDIT 64  // (ms) Button repeat delay for edit screens
+  #define BUTTON_DELAY_EDIT 75  // (ms) Button repeat delay for edit screens
   #define BUTTON_DELAY_MENU 150 // (ms) Button repeat delay for menus
 
   /* MKS Robin TFT v2.0 */
