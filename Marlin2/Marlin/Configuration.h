@@ -479,10 +479,10 @@
   //#define DEFAULT_Ki 1.08
   //#define DEFAULT_Kd 114
 
-  // SapphirePro M303 E0 S200 C8
-  #define DEFAULT_Kp 27.42
-  #define DEFAULT_Ki 2.71
-  #define DEFAULT_Kd 69.23
+  // SapphirePro (E3D V6 heater block) M303 E0 S230 C8
+  #define DEFAULT_Kp 13.41
+  #define DEFAULT_Ki 1.16
+  #define DEFAULT_Kd 38.69
 
   // MakerGear
   //#define DEFAULT_Kp 7.0
