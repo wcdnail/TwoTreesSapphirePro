@@ -1,5 +1,5 @@
 
-sideWidth = 10;
+sideWidth = 5;
 side      = [sideWidth, sideWidth, sideWidth];
 XLength   = 100;
 YLength   = 100;
