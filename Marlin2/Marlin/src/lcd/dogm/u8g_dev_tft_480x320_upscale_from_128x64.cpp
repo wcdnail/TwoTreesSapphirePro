@@ -492,9 +492,9 @@ static uint8_t page;
 static uint8_t getCThemeColor(u8g_t *u8gptr, uint16_t& fore, uint16_t& back) {
   uint8_t index = CTHEME_GETINDEX(u8gptr);
   switch (index) {
-  case CTHEME_KILLSCREEN:  fore = COLOR_YELLOW; back = COLOR_RED; break;
-  case CTHEME_BOOTSCREEN1: fore = RGBto565(0x001b33); back = TFT_MARLINBG_COLOR; break;
-  case CTHEME_BOOTSCREEN2: fore = RGBto565(0x001b33); back = TFT_MARLINBG_COLOR; break;
+  case CTHEME_KILLSCREEN:  fore = COLOR_WHITE;  back = COLOR_RED; break;
+  case CTHEME_BOOTSCREEN1: fore = TFT_BOOTSCREEN1; back = TFT_BOOTSCREEN1_BG; break;
+  case CTHEME_BOOTSCREEN2: fore = TFT_BOOTSCREEN2; back = TFT_MARLINBG_COLOR; break;
   case CTHEME_STATUS: 
   default:
     fore = TFT_MARLINUI_COLOR; 
