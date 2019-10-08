@@ -504,6 +504,7 @@ static uint8_t getCThemeColor(u8g_t *u8gptr, uint16_t& fore, uint16_t& back) {
   return index;
 }
 
+//#define _DEBUG_GFX
 #ifdef _DEBUG_GFX
   #define _TFT_DEBUG_SPLITTING(CLR) back = CLR
 #else
@@ -514,30 +515,30 @@ static void getCThemeColorByCoords(uint16_t x, uint16_t y, uint16_t& fore, uint1
   static const uint16_t    _XYZ_HOLLOW_FRAME_top = 37;
   static const uint16_t _XYZ_HOLLOW_FRAME_bottom = _XYZ_HOLLOW_FRAME_top + 11;
   static const uint16_t         _STATUS_LINE_top = _XYZ_HOLLOW_FRAME_bottom + 14;
-  static const uint16_t       _STATUS_LOGO_WIDTH = 47;
+  static const uint16_t       _STATUS_LOGO_WIDTH = 45;
   static const uint16_t                _FAN_LEFT = WIDTH - 23;
   static const uint16_t                _BED_LEFT = _FAN_LEFT - 24;
   static const uint16_t               _PBAR_LEFT = 37;
   if (y < _XYZ_HOLLOW_FRAME_top) {
     if (x < _STATUS_LOGO_WIDTH) {           // LOGO area
       fore = RGBto565(0x75aec4);
-      _TFT_DEBUG_SPLITTING(COLOR_BLACK);
+      _TFT_DEBUG_SPLITTING(COLOR_RED);
     }
     else if (x < _BED_LEFT) {               // HOTEND area
-      fore = RGBto565(0x001b33);
+      fore = TFT_MARLINUI_COLOR;
       _TFT_DEBUG_SPLITTING(COLOR_WHITE);
     }
     else if (x < _FAN_LEFT) {               // BED area
-      fore = RGBto565(0x001b33);
+      fore = TFT_MARLINUI_COLOR;
       _TFT_DEBUG_SPLITTING(COLOR_BLACK);
     }
     else {                                  // FAN area
-      fore = RGBto565(0x001b33);
+      fore = TFT_MARLINUI_COLOR;
       _TFT_DEBUG_SPLITTING(COLOR_BLUE);
     }
   }
   else if (y < _XYZ_HOLLOW_FRAME_bottom) {  // XYZ frame area
-    fore = RGBto565(0xbaffec);
+    fore = RGBto565(0xff7276);
     _TFT_DEBUG_SPLITTING(COLOR_MAGENTA);
   }
   else if (y < _STATUS_LINE_top) {          // Progress & SD area

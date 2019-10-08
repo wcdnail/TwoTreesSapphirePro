@@ -1299,7 +1299,7 @@
 #define LEVEL_BED_CORNERS
 
 #if ENABLED(LEVEL_BED_CORNERS)
-  #define LEVEL_CORNERS_INSET 40    // (mm) An inset for corner leveling
+  #define LEVEL_CORNERS_INSET 50    // (mm) An inset for corner leveling
   #define LEVEL_CORNERS_Z_HOP  5.0  // (mm) Move nozzle up before moving between corners
   #define LEVEL_CORNERS_HEIGHT 0.0  // (mm) Z height of nozzle at leveling points
   #define LEVEL_CENTER_TOO          // Move to the center after the last corner
@@ -2083,7 +2083,7 @@
 #define TOUCH_BUTTONS
 #if ENABLED(TOUCH_BUTTONS)
   #define BUTTON_DELAY_EDIT 75  // (ms) Button repeat delay for edit screens
-  #define BUTTON_DELAY_MENU 150 // (ms) Button repeat delay for menus
+  #define BUTTON_DELAY_MENU 100 // (ms) Button repeat delay for menus
 
   /* MKS Robin TFT v2.0 */
   #define XPT2046_X_CALIBRATION    12149
