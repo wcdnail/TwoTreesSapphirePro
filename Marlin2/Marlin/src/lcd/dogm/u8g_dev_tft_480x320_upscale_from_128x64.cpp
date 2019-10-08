@@ -1,8 +1,8 @@
 /**
  * Модификация для TFT35 480х320
  *
- * Благодарность:
- *  inib https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT
+ * Оргромная благодарность:
+ *  Korbinian Heel (inib) https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT
  * 
  */
 
