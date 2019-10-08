@@ -1,6 +1,10 @@
 ![alert-banner](Docs/repo-banner.png?raw=true "Версия сырая! Ставить на свой СТРАХ и РИСК!")
 * Баг №1 - произвольное движение каретки при печати
 
+### С графикой помог Korbinian Heel
+https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT<br/>
+https://escope.de/posts/sapphire-pro-marlin/<br/>
+
 ### Версия марлин - 2.0.x bugfix, взята 03.10.2019
 ![sapphire-pro-1-marlin-status](Docs/hints-1/status-screen.jpg?raw=true)
 
@@ -66,8 +70,6 @@
 # Железо SapphirePro
 
 * Дисплей - MKS TFT35 (3.5" (~9см)) 480*320<br/>
-  Нашел нормальную реализацию масштабирования тут - https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT<br/>
-  https://escope.de/posts/sapphire-pro-marlin/<br/>
 
 # Стоковые прошивки
 `StockFirmwares`
