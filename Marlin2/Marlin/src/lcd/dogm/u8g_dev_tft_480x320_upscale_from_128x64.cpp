@@ -504,58 +504,61 @@ static uint8_t getCThemeColor(u8g_t *u8gptr, uint16_t& fore, uint16_t& back) {
   return index;
 }
 
-//#define _DEBUG_GFX
-#ifdef _DEBUG_GFX
-  #define _TFT_DEBUG_SPLITTING(CLR) back = CLR
-#else
-  #define _TFT_DEBUG_SPLITTING(CLR)
-#endif
+//#define _CTHEME_BY_COORDS
+#ifdef _CTHEME_BY_COORDS
+  //#define _DEBUG_CTHEME_BY_COORDS
+  #ifdef _DEBUG_CTHEME_BY_COORDS
+    #define _TFT_DEBUG_SPLITTING(CLR) back = CLR
+  #else
+    #define _TFT_DEBUG_SPLITTING(CLR)
+  #endif
 
-static void getCThemeColorByCoords(uint16_t x, uint16_t y, uint16_t& fore, uint16_t& back) {
-  static const uint16_t    _XYZ_HOLLOW_FRAME_top = 37;
-  static const uint16_t _XYZ_HOLLOW_FRAME_bottom = _XYZ_HOLLOW_FRAME_top + 11;
-  static const uint16_t         _STATUS_LINE_top = _XYZ_HOLLOW_FRAME_bottom + 14;
-  static const uint16_t       _STATUS_LOGO_WIDTH = 45;
-  static const uint16_t                _FAN_LEFT = WIDTH - 23;
-  static const uint16_t                _BED_LEFT = _FAN_LEFT - 24;
-  static const uint16_t               _PBAR_LEFT = 37;
-  if (y < _XYZ_HOLLOW_FRAME_top) {
-    if (x < _STATUS_LOGO_WIDTH) {           // LOGO area
-      fore = RGBto565(0x75aec4);
-      _TFT_DEBUG_SPLITTING(COLOR_RED);
+  static void getCThemeColorByCoords(uint16_t x, uint16_t y, uint16_t& fore, uint16_t& back) {
+    static const uint16_t    _XYZ_HOLLOW_FRAME_top = 37;
+    static const uint16_t _XYZ_HOLLOW_FRAME_bottom = _XYZ_HOLLOW_FRAME_top + 11;
+    static const uint16_t         _STATUS_LINE_top = _XYZ_HOLLOW_FRAME_bottom + 14;
+    static const uint16_t       _STATUS_LOGO_WIDTH = 45;
+    static const uint16_t                _FAN_LEFT = WIDTH - 23;
+    static const uint16_t                _BED_LEFT = _FAN_LEFT - 24;
+    static const uint16_t               _PBAR_LEFT = 37;
+    if (y < _XYZ_HOLLOW_FRAME_top) {
+      if (x < _STATUS_LOGO_WIDTH) {           // LOGO area
+        fore = RGBto565(0x75aec4);
+        _TFT_DEBUG_SPLITTING(COLOR_RED);
+      }
+      else if (x < _BED_LEFT) {               // HOTEND area
+        fore = TFT_MARLINUI_COLOR;
+        _TFT_DEBUG_SPLITTING(COLOR_WHITE);
+      }
+      else if (x < _FAN_LEFT) {               // BED area
+        fore = TFT_MARLINUI_COLOR;
+        _TFT_DEBUG_SPLITTING(COLOR_BLACK);
+      }
+      else {                                  // FAN area
+        fore = TFT_MARLINUI_COLOR;
+        _TFT_DEBUG_SPLITTING(COLOR_BLUE);
+      }
     }
-    else if (x < _BED_LEFT) {               // HOTEND area
-      fore = TFT_MARLINUI_COLOR;
-      _TFT_DEBUG_SPLITTING(COLOR_WHITE);
+    else if (y < _XYZ_HOLLOW_FRAME_bottom) {  // XYZ frame area
+      fore = RGBto565(0xff7276);
+      _TFT_DEBUG_SPLITTING(COLOR_MAGENTA);
     }
-    else if (x < _FAN_LEFT) {               // BED area
-      fore = TFT_MARLINUI_COLOR;
-      _TFT_DEBUG_SPLITTING(COLOR_BLACK);
+    else if (y < _STATUS_LINE_top) {          // Progress & SD area
+      if (x < _PBAR_LEFT) {                   // Speed area
+        fore = RGBto565(0x001b33);
+        _TFT_DEBUG_SPLITTING(COLOR_DARK);
+      }
+      else {                                  // Progress bar area
+        fore = RGBto565(0xedff72);
+        _TFT_DEBUG_SPLITTING(COLOR_RED);
+      }
     }
-    else {                                  // FAN area
-      fore = TFT_MARLINUI_COLOR;
-      _TFT_DEBUG_SPLITTING(COLOR_BLUE);
+    else {                                    // Status line area
+      fore = RGBto565(0xbaffec);
+      _TFT_DEBUG_SPLITTING(COLOR_YELLOW);
     }
   }
-  else if (y < _XYZ_HOLLOW_FRAME_bottom) {  // XYZ frame area
-    fore = RGBto565(0xff7276);
-    _TFT_DEBUG_SPLITTING(COLOR_MAGENTA);
-  }
-  else if (y < _STATUS_LINE_top) {          // Progress & SD area
-    if (x < _PBAR_LEFT) {                   // Speed area
-      fore = RGBto565(0x001b33);
-      _TFT_DEBUG_SPLITTING(COLOR_DARK);
-    }
-    else {                                  // Progress bar area
-      fore = RGBto565(0xedff72);
-      _TFT_DEBUG_SPLITTING(COLOR_RED);
-    }
-  }
-  else {                                    // Status line area
-    fore = RGBto565(0xbaffec);
-    _TFT_DEBUG_SPLITTING(COLOR_YELLOW);
-  }
-}
+#endif // _CTHEME_BY_COORDS
 
 uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, uint8_t msg, void *arg) {
   u8g_pb_t *pb = (u8g_pb_t *)(dev->dev_mem);
@@ -627,17 +630,20 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
       uint16_t fg;
       uint16_t bg;
       uint8_t  ti = getCThemeColor(u8g, fg, bg);
+#ifdef _CTHEME_BY_COORDS      
       uint16_t cy = page * PAGE_HEIGHT;
-
+#endif // _CTHEME_BY_COORDS          
       for (uint8_t y = 0; y < PAGE_HEIGHT; y++) { // loop columns Y
         uint32_t k = 0;
         #ifdef LCD_USE_DMA_FSMC
           buffer = (y & 1) ? bufferB : bufferA; // alternating buffers
         #endif
         for (uint16_t i = 0; i < (uint32_t)pb->width; i++) { //loop rows X
+#ifdef _CTHEME_BY_COORDS
           if (CTHEME_STATUS == ti) {
             getCThemeColorByCoords(i, cy, fg, bg);
           }
+#endif // _CTHEME_BY_COORDS          
           const uint8_t b = *(((uint8_t *)pb->buf) + i);
           const uint16_t c = TEST(b, y) ? fg : bg;
           //@ 2x upscale X
@@ -664,7 +670,9 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
           buffer[k++] = c;
           buffer[k++] = c;
         }
+#ifdef _CTHEME_BY_COORDS                
         ++cy;
+#endif // _CTHEME_BY_COORDS
         #ifdef LCD_USE_DMA_FSMC
           //@ 2x upscale Y 
           // resulting buffersize RGB565 * 512 - 256*2
