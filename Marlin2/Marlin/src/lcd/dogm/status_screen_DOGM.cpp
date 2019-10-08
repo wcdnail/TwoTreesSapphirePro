@@ -26,6 +26,7 @@
 //
 
 #include "../../inc/MarlinConfigPre.h"
+#include "../../../ColorScheme.h"
 
 #if HAS_GRAPHICAL_LCD && DISABLED(LIGHTWEIGHT_UI)
 
@@ -320,7 +321,7 @@ FORCE_INLINE void _draw_axis_value(const AxisEnum axis, const char *value, const
 #endif
 
 void MarlinUI::draw_status_screen() {
-
+  
   #if ENABLED(MARLIN_DEV_MODE)
     if (first_page) count_renders++;
   #endif

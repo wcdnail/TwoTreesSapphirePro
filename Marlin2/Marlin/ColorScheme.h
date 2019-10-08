@@ -6,12 +6,38 @@
 
 #pragma once
 
+// Indexes
+#if ENABLED(FSMC_GRAPHICAL_TFT)
+  #define CTHEME_ZEROINDEX              0
+  #define CTHEME_DEFAULTS               (CTHEME_ZEROINDEX + 0)
+  #define CTHEME_KILLSCREEN             (CTHEME_ZEROINDEX + 1)
+  #define CTHEME_BOOTSCREEN1            (CTHEME_ZEROINDEX + 2)
+  #define CTHEME_BOOTSCREEN2            (CTHEME_ZEROINDEX + 3)
+  #define CTHEME_STATUS                 (CTHEME_ZEROINDEX + 4)
+  #define CTHEME_SWITCH(Index)          u8g.getU8g()->arg_pixel.blue = Index
+  #define CTHEME_GETINDEX(u8gptr)       u8gptr->arg_pixel.blue
+#else
+  #define CTHEME_DEFAULTS               1
+  #define CTHEME_KILLSCREEN             1
+  #define CTHEME_BOOTSCREEN1            1
+  #define CTHEME_BOOTSCREEN2            1
+  #define CTHEME_STATUS                 1
+  #define CTHEME_SWITCH(Index)
+#endif
+
 #define TFT_COLOR_THEME_UNDEF   -1
 #define TFT_COLOR_BLACK_THEME   0
 #define TFT_COLOR_BLUE_THEME    1
 #define TFT_COLOR_GREEN_THEME   2
 
-#define TFT_COLOR_THEME   TFT_COLOR_GREEN_THEME
+#define TFT_COLOR_THEME   TFT_COLOR_BLUE_THEME
+
+inline constexpr uint16_t RGBto565(uint32_t rgbv) {
+  uint32_t r = (rgbv & 0x00ff0000) >> 16;
+  uint32_t g = (rgbv & 0x0000ff00) >> 8;
+  uint32_t b = (rgbv & 0x000000ff) >> 0;
+  return (((r>>3)<<11) | ((g>>2)<<5) | (b>>3));
+}
 
 // see https://ee-programming-notepad.blogspot.com/2016/10/16-bit-color-generator-picker.html
 // https://trolsoft.ru/ru/articles/rgb565-color-picker
@@ -55,11 +81,11 @@
   #define TFT_BTARROWS_COLOR 0x01EC
   #define TFT_BTOKMENU_COLOR 0xF7CC
 #elif TFT_COLOR_THEME == TFT_COLOR_BLUE_THEME
-  #define TFT_MARLINUI_COLOR COLOR_SILVER
-  #define TFT_MARLINBG_COLOR 0x01F4
-  #define TFT_BTCANCEL_COLOR COLOR_MAGENTA
-  #define TFT_BTARROWS_COLOR COLOR_AQUA
-  #define TFT_BTOKMENU_COLOR COLOR_YELLOW
+  #define TFT_MARLINUI_COLOR COLOR_WHITE
+  #define TFT_MARLINBG_COLOR RGBto565(0x005dae)
+  #define TFT_BTCANCEL_COLOR RGBto565(0xff7276)
+  #define TFT_BTARROWS_COLOR RGBto565(0x35a5cf)
+  #define TFT_BTOKMENU_COLOR RGBto565(0x3efff4)
 #elif TFT_COLOR_THEME == TFT_COLOR_GREEN_THEME
   #define TFT_MARLINUI_COLOR 0xF794
   #define TFT_MARLINBG_COLOR 0x2BE7

@@ -23,7 +23,7 @@ module spool_50mm_tube_mount() {
 }
 
 module spool_50mm_tube_clamp(cz=7) {
-  idia=50.4;
+  idia=50;
   id1=idia;
   id2=idia + 1;
   odia=54;

@@ -91,7 +91,7 @@
 #if HAS_GRAPHICAL_LCD && PIN_EXISTS(FSMC_CS)
 #include "HAL_LCD_com_defines.h"
 #include "ultralcd_DOGM.h"
-#include "tft_color_scheme.h"
+#include "../../../ColorScheme.h"
 #include <string.h>
 
 #if ENABLED(LCD_USE_DMA_FSMC)
@@ -415,7 +415,7 @@ static const uint8_t ili9341_init_sequence[] = { // 0x9341 - ILI9341
   // *check for button sizes and how to upscale to fit on screen
   // *check if other parts of marlin use drawImage
 
-  void drawImage(const uint8_t *data, u8g_t *u8g, u8g_dev_t *dev, uint16_t length, uint16_t height, uint16_t color) {
+  static void drawImage(const uint8_t *data, u8g_t *u8g, u8g_dev_t *dev, uint16_t length, uint16_t height, uint16_t color) {
     static uint16_t p_buffer[288];
     uint16_t* buffer = &p_buffer[0];
 
@@ -489,13 +489,80 @@ inline void memset2(const void *ptr, uint16_t fill, size_t cnt) {
 static bool preinit = true;
 static uint8_t page;
 
+static uint8_t getCThemeColor(u8g_t *u8gptr, uint16_t& fore, uint16_t& back) {
+  uint8_t index = CTHEME_GETINDEX(u8gptr);
+  switch (index) {
+  case CTHEME_KILLSCREEN:  fore = COLOR_YELLOW; back = COLOR_RED; break;
+  case CTHEME_BOOTSCREEN1: fore = RGBto565(0x001b33); back = TFT_MARLINBG_COLOR; break;
+  case CTHEME_BOOTSCREEN2: fore = RGBto565(0x001b33); back = TFT_MARLINBG_COLOR; break;
+  case CTHEME_STATUS: 
+  default:
+    fore = TFT_MARLINUI_COLOR; 
+    back = TFT_MARLINBG_COLOR; 
+    break;
+  }
+  return index;
+}
+
+#ifdef _DEBUG_GFX
+  #define _TFT_DEBUG_SPLITTING(CLR) back = CLR
+#else
+  #define _TFT_DEBUG_SPLITTING(CLR)
+#endif
+
+static void getCThemeColorByCoords(uint16_t x, uint16_t y, uint16_t& fore, uint16_t& back) {
+  static const uint16_t    _XYZ_HOLLOW_FRAME_top = 37;
+  static const uint16_t _XYZ_HOLLOW_FRAME_bottom = _XYZ_HOLLOW_FRAME_top + 11;
+  static const uint16_t         _STATUS_LINE_top = _XYZ_HOLLOW_FRAME_bottom + 14;
+  static const uint16_t       _STATUS_LOGO_WIDTH = 47;
+  static const uint16_t                _FAN_LEFT = WIDTH - 23;
+  static const uint16_t                _BED_LEFT = _FAN_LEFT - 24;
+  static const uint16_t               _PBAR_LEFT = 37;
+  if (y < _XYZ_HOLLOW_FRAME_top) {
+    if (x < _STATUS_LOGO_WIDTH) {           // LOGO area
+      fore = RGBto565(0x75aec4);
+      _TFT_DEBUG_SPLITTING(COLOR_BLACK);
+    }
+    else if (x < _BED_LEFT) {               // HOTEND area
+      fore = RGBto565(0x001b33);
+      _TFT_DEBUG_SPLITTING(COLOR_WHITE);
+    }
+    else if (x < _FAN_LEFT) {               // BED area
+      fore = RGBto565(0x001b33);
+      _TFT_DEBUG_SPLITTING(COLOR_BLACK);
+    }
+    else {                                  // FAN area
+      fore = RGBto565(0x001b33);
+      _TFT_DEBUG_SPLITTING(COLOR_BLUE);
+    }
+  }
+  else if (y < _XYZ_HOLLOW_FRAME_bottom) {  // XYZ frame area
+    fore = RGBto565(0xbaffec);
+    _TFT_DEBUG_SPLITTING(COLOR_MAGENTA);
+  }
+  else if (y < _STATUS_LINE_top) {          // Progress & SD area
+    if (x < _PBAR_LEFT) {                   // Speed area
+      fore = RGBto565(0x001b33);
+      _TFT_DEBUG_SPLITTING(COLOR_DARK);
+    }
+    else {                                  // Progress bar area
+      fore = RGBto565(0xedff72);
+      _TFT_DEBUG_SPLITTING(COLOR_RED);
+    }
+  }
+  else {                                    // Status line area
+    fore = RGBto565(0xbaffec);
+    _TFT_DEBUG_SPLITTING(COLOR_YELLOW);
+  }
+}
+
 uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, uint8_t msg, void *arg) {
   u8g_pb_t *pb = (u8g_pb_t *)(dev->dev_mem);
   #ifdef LCD_USE_DMA_FSMC
     // new buffer sizes needed?
     static uint16_t bufferA[1152], bufferB[1152];
     uint16_t* buffer = &bufferA[0];
-    bool allow_async = true;
+    const bool allow_async = true;
   #else
     uint16_t buffer[WIDTH*2]; // 16-bit RGB 565 pixel line buffer
   #endif
@@ -551,8 +618,15 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
       u8g_WriteEscSeqP(u8g, dev, page_first_sequence);
       break;
 
-    case U8G_DEV_MSG_PAGE_NEXT:
-      if (++page > (HEIGHT / PAGE_HEIGHT)) return 1;
+    case U8G_DEV_MSG_PAGE_NEXT: {
+      if (++page > (HEIGHT / PAGE_HEIGHT)) {
+        return 1;
+      }
+
+      uint16_t fg;
+      uint16_t bg;
+      uint8_t  ti = getCThemeColor(u8g, fg, bg);
+      uint16_t cy = page * PAGE_HEIGHT;
 
       for (uint8_t y = 0; y < PAGE_HEIGHT; y++) { // loop columns Y
         uint32_t k = 0;
@@ -560,8 +634,11 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
           buffer = (y & 1) ? bufferB : bufferA; // alternating buffers
         #endif
         for (uint16_t i = 0; i < (uint32_t)pb->width; i++) { //loop rows X
+          if (CTHEME_STATUS == ti) {
+            getCThemeColorByCoords(i, cy, fg, bg);
+          }
           const uint8_t b = *(((uint8_t *)pb->buf) + i);
-          const uint16_t c = TEST(b, y) ? TFT_MARLINUI_COLOR : TFT_MARLINBG_COLOR;
+          const uint16_t c = TEST(b, y) ? fg : bg;
           //@ 2x upscale X
           // resulting buffersize RGB565 * 256 - 128*2
 
@@ -586,6 +663,7 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
           buffer[k++] = c;
           buffer[k++] = c;
         }
+        ++cy;
         #ifdef LCD_USE_DMA_FSMC
           //@ 2x upscale Y 
           // resulting buffersize RGB565 * 512 - 256*2
@@ -624,6 +702,7 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
         #endif
       }
       break;
+    }
 
     case U8G_DEV_MSG_SLEEP_ON:
       // Enter Sleep Mode (10h)

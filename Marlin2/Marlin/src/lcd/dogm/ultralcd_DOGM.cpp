@@ -41,6 +41,7 @@
 
 #include "ultralcd_DOGM.h"
 #include "u8g_fontutf8.h"
+#include "../../../ColorScheme.h"
 
 #if ENABLED(SHOW_BOOTSCREEN)
   #include "dogm_Bootscreen.h"
@@ -231,9 +232,12 @@ bool MarlinUI::detected() { return true; }
 
   void MarlinUI::show_bootscreen() {
     #if ENABLED(SHOW_CUSTOM_BOOTSCREEN)
+      CTHEME_SWITCH(CTHEME_BOOTSCREEN1);
       show_custom_bootscreen();
     #endif
+    CTHEME_SWITCH(CTHEME_BOOTSCREEN2);
     show_marlin_bootscreen();
+    clear_lcd();
   }
 
 #endif // SHOW_BOOTSCREEN
@@ -296,6 +300,7 @@ void MarlinUI::draw_kill_screen() {
     ST7920_Lite_Status_Screen::clear_text_buffer();
   #endif
   const u8g_uint_t h4 = u8g.getHeight() / 4;
+  CTHEME_SWITCH(CTHEME_KILLSCREEN);
   u8g.firstPage();
   do {
     set_font(FONT_MENU);
@@ -305,7 +310,14 @@ void MarlinUI::draw_kill_screen() {
   } while (u8g.nextPage());
 }
 
-void MarlinUI::clear_lcd() { } // Automatically cleared by Picture Loop
+void MarlinUI::clear_lcd() { // Automatically cleared by Picture Loop
+  if (currentScreen == status_screen) {
+    CTHEME_SWITCH(CTHEME_STATUS);
+  }
+  else {
+    CTHEME_SWITCH(CTHEME_DEFAULTS);
+  }
+}
 
 #if HAS_LCD_MENU
 
