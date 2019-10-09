@@ -415,61 +415,34 @@ static const uint8_t ili9341_init_sequence[] = { // 0x9341 - ILI9341
   // *check for button sizes and how to upscale to fit on screen
   // *check if other parts of marlin use drawImage
 
-  static void drawImage(const uint8_t *data, u8g_t *u8g, u8g_dev_t *dev, uint16_t length, uint16_t height, uint16_t color) {
+  static void drawBtnImage(const uint8_t *data, u8g_t *u8g, u8g_dev_t *dev, uint16_t length, uint16_t height, uint16_t color,  uint16_t bkColor) {
     static uint16_t p_buffer[288];
     uint16_t* buffer = &p_buffer[0];
 
     for (uint16_t i = 0; i < height; i++) {
       uint32_t k = 0;
       for (uint16_t j = 0; j < length; j++) {
-        uint16_t v = TFT_MARLINBG_COLOR;
-        if (*(data + (i * (length >> 3) + (j >> 3))) & (0x80 >> (j & 7)))
+        uint16_t v;
+        if (*(data + (i * (length >> 3) + (j >> 3))) & (0x80 >> (j & 7))) {
           v = color;
-        else
-          v = TFT_MARLINBG_COLOR;
-        
-        // linear write should be faster
-        // optimize later
-        //
-        // buffer[k+96] = v;
-        // buffer[k+192] = v;
-        // buffer[k++] = v;
-        // buffer[k+96] = v;
-        // buffer[k+192] = v;
-        // buffer[k++] = v;
-        // buffer[k+96] = v;
-        // buffer[k+192] = v;
-        // buffer[k++] = v;
-
+        } 
+        else {
+          v = bkColor;
+        }
         // upscale X 3x
         buffer[k++] = v;
         buffer[k++] = v;
         buffer[k++] = v;
       }
       #ifdef LCD_USE_DMA_FSMC
-        // if (k <= 80) { // generally is... for our buttons        
-        //   memcpy(&buffer[k], &buffer[0], k * sizeof(uint16_t));
-          
-        //   LCD_IO_WriteSequence(buffer, k * sizeof(uint16_t));
-        // }
-        // else {
-        //   LCD_IO_WriteSequence(buffer, k);
-
-        //   LCD_IO_WriteSequence(buffer, k);
-        // }
-
         // Upscale Y 3x
         // linear write should be faster for big arrays
-        // 
-        for (uint16_t l = 0; l < 96; l++)
-        {
+        for (uint16_t l = 0; l < 96; l++) {
           buffer[l+96] = buffer[l];
         }
-        for (uint16_t l = 0; l < 96; l++)
-        {
+        for (uint16_t l = 0; l < 96; l++) {
           buffer[l+192] = buffer[l];
         }
-        
         LCD_IO_WriteSequence(p_buffer, 288);
       #else
         u8g_WriteSequence(u8g, dev, k << 1, (uint8_t *)buffer);
@@ -489,76 +462,77 @@ inline void memset2(const void *ptr, uint16_t fill, size_t cnt) {
 static bool preinit = true;
 static uint8_t page;
 
-static uint8_t getCThemeColor(u8g_t *u8gptr, uint16_t& fore, uint16_t& back) {
-  uint8_t index = CTHEME_GETINDEX(u8gptr);
-  switch (index) {
-  case CTHEME_KILLSCREEN:  fore = COLOR_WHITE;  back = COLOR_RED; break;
-  case CTHEME_BOOTSCREEN1: fore = TFT_BOOTSCREEN1; back = TFT_BOOTSCREEN1_BG; break;
-  case CTHEME_BOOTSCREEN2: fore = TFT_BOOTSCREEN2; back = TFT_MARLINBG_COLOR; break;
-  case CTHEME_STATUS: 
-  default:
-    fore = TFT_MARLINUI_COLOR; 
-    back = TFT_MARLINBG_COLOR; 
-    break;
-  }
-  return index;
+// --------------------------------------------------------------------------------------------------------------------
+
+static uint16_t tftForeColor = TFT_MARLINUI_COLOR;
+static uint16_t tftBackColor = TFT_MARLINBG_COLOR;
+static uint16_t     tftFlags = 0;
+
+extern "C" {
+  void tftSetFgColor(uint16_t v) { tftForeColor = v; }
+  void tftSetBgColor(uint16_t v) { tftBackColor = v; }
+  void tftSetFlags(uint16_t flags) { tftFlags = flags; }
 }
 
-//#define _CTHEME_BY_COORDS
-#ifdef _CTHEME_BY_COORDS
-  //#define _DEBUG_CTHEME_BY_COORDS
-  #ifdef _DEBUG_CTHEME_BY_COORDS
-    #define _TFT_DEBUG_SPLITTING(CLR) back = CLR
-  #else
-    #define _TFT_DEBUG_SPLITTING(CLR)
-  #endif
+// --------------------------------------------------------------------------------------------------------------------
+//#define _DEBUG_STATUS_COLORS
+#ifdef _DEBUG_STATUS_COLORS
+  #define _TFT_DEBUG_SPLITTING(CLR) back = CLR
+#else
+  #define _TFT_DEBUG_SPLITTING(CLR)
+#endif
 
-  static void getCThemeColorByCoords(uint16_t x, uint16_t y, uint16_t& fore, uint16_t& back) {
-    static const uint16_t    _XYZ_HOLLOW_FRAME_top = 37;
-    static const uint16_t _XYZ_HOLLOW_FRAME_bottom = _XYZ_HOLLOW_FRAME_top + 11;
-    static const uint16_t         _STATUS_LINE_top = _XYZ_HOLLOW_FRAME_bottom + 14;
-    static const uint16_t       _STATUS_LOGO_WIDTH = 45;
-    static const uint16_t                _FAN_LEFT = WIDTH - 23;
-    static const uint16_t                _BED_LEFT = _FAN_LEFT - 24;
-    static const uint16_t               _PBAR_LEFT = 37;
-    if (y < _XYZ_HOLLOW_FRAME_top) {
-      if (x < _STATUS_LOGO_WIDTH) {           // LOGO area
-        fore = RGBto565(0x75aec4);
-        _TFT_DEBUG_SPLITTING(COLOR_RED);
-      }
-      else if (x < _BED_LEFT) {               // HOTEND area
-        fore = TFT_MARLINUI_COLOR;
-        _TFT_DEBUG_SPLITTING(COLOR_WHITE);
-      }
-      else if (x < _FAN_LEFT) {               // BED area
-        fore = TFT_MARLINUI_COLOR;
-        _TFT_DEBUG_SPLITTING(COLOR_BLACK);
-      }
-      else {                                  // FAN area
-        fore = TFT_MARLINUI_COLOR;
-        _TFT_DEBUG_SPLITTING(COLOR_BLUE);
-      }
-    }
-    else if (y < _XYZ_HOLLOW_FRAME_bottom) {  // XYZ frame area
-      fore = RGBto565(0xff7276);
-      _TFT_DEBUG_SPLITTING(COLOR_MAGENTA);
-    }
-    else if (y < _STATUS_LINE_top) {          // Progress & SD area
-      if (x < _PBAR_LEFT) {                   // Speed area
-        fore = RGBto565(0x001b33);
-        _TFT_DEBUG_SPLITTING(COLOR_DARK);
-      }
-      else {                                  // Progress bar area
-        fore = RGBto565(0xedff72);
-        _TFT_DEBUG_SPLITTING(COLOR_RED);
-      }
-    }
-    else {                                    // Status line area
-      fore = RGBto565(0xbaffec);
-      _TFT_DEBUG_SPLITTING(COLOR_YELLOW);
-    }
+static void getStatusColors(uint16_t x, uint16_t y, uint16_t& fore, uint16_t& back) {
+  static const uint16_t    _XYZ_HOLLOW_FRAME_top = 37;
+  static const uint16_t _XYZ_HOLLOW_FRAME_bottom = _XYZ_HOLLOW_FRAME_top + 11;
+  static const uint16_t         _STATUS_LINE_top = _XYZ_HOLLOW_FRAME_bottom + 14;
+  static const uint16_t       _STATUS_LOGO_WIDTH = 45;
+  static const uint16_t                _FAN_LEFT = WIDTH - 23;
+  static const uint16_t                _BED_LEFT = _FAN_LEFT - 24;
+  static const uint16_t               _PBAR_LEFT = 37;
+  #define _GSC_SETC(CLR)      do { fore = CLR; } while (0)
+  #define _GSC_SETB(CLR)      do { back = CLR; } while (0)
+  #define _GSC_SETCB(CLR, BK) do { fore = CLR; back = BK; } while (0)
+  #define _GSC_SEL(SYM)       _GSC_SETCB(TFT_COLOR_FG_##SYM, TFT_COLOR_BG_##SYM)
+  if(_TFT_FLG_STATUS_SCREEN != (tftFlags & _TFT_SCREEN_MASK)) {
+    return;
   }
-#endif // _CTHEME_BY_COORDS
+  // Top area ---------------------------------------------------------------------------------------------------------
+  if (y < _XYZ_HOLLOW_FRAME_top) {
+    /*   LOGO */ if (x < _STATUS_LOGO_WIDTH) { _GSC_SEL(STATUS_LOGO);  _TFT_DEBUG_SPLITTING(COLOR_YELLOW); }
+    /* HOTEND */ else if (x < _BED_LEFT)     { _GSC_SEL(HOTEND); _TFT_DEBUG_SPLITTING(COLOR_WHITE); }
+    /*    BED */ else if (x < _FAN_LEFT)     { _GSC_SEL(HOTBED); _TFT_DEBUG_SPLITTING(COLOR_BLACK); }
+    /*    FAN */ else                        { _GSC_SEL(FAN); _TFT_DEBUG_SPLITTING(COLOR_BLUE); }
+  }
+  // XYZ frame area ---------------------------------------------------------------------------------------------------
+  else if (y < _XYZ_HOLLOW_FRAME_bottom)     {  _GSC_SEL(XYZ_FRAME); _TFT_DEBUG_SPLITTING(COLOR_MAGENTA); }
+  // Progress & SD area -----------------------------------------------------------------------------------------------
+  else if (y < _STATUS_LINE_top) {          
+    /*   FR */ if (x < _PBAR_LEFT)           { _GSC_SEL(FR_SPD); _TFT_DEBUG_SPLITTING(COLOR_DARK); }
+    /* PBAR */ else                          { _GSC_SEL(PBAR); _TFT_DEBUG_SPLITTING(COLOR_RED); }
+  }
+  // Status line area -------------------------------------------------------------------------------------------------
+  else                                       { _GSC_SEL(STAUS_LINE); _TFT_DEBUG_SPLITTING(COLOR_YELLOW); }
+}
+// --------------------------------------------------------------------------------------------------------------------
+
+static void drawUIButtons(u8g_t *u8g, u8g_dev_t *dev) {
+  // bottom line and buttons
+#if ENABLED(TOUCH_BUTTONS)
+  //@ check button sizes
+  u8g_WriteEscSeqP(u8g, dev, buttonD_sequence);
+  drawBtnImage(buttonD, u8g, dev, 32, 20, TFT_BTCANCEL_COLOR, TFT_BTCANCEL_BKCOLOR);
+
+  u8g_WriteEscSeqP(u8g, dev, buttonA_sequence);
+  drawBtnImage(buttonA, u8g, dev, 32, 20, TFT_BTARROWDEC_COLOR, TFT_BTARROWDEC_BKCOLOR);
+
+  u8g_WriteEscSeqP(u8g, dev, buttonB_sequence);
+  drawBtnImage(buttonB, u8g, dev, 32, 20, TFT_BTARROWINC_COLOR, TFT_BTARROWINC_BKCOLOR);
+
+  u8g_WriteEscSeqP(u8g, dev, buttonC_sequence);
+  drawBtnImage(buttonC, u8g, dev, 32, 20, TFT_BTOKMENU_COLOR, TFT_BTOKMENU_BKCOLOR);
+#endif // TOUCH_BUTTONS
+}
 
 uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, uint8_t msg, void *arg) {
   u8g_pb_t *pb = (u8g_pb_t *)(dev->dev_mem);
@@ -589,7 +563,6 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
       // Clear Screen Sequence
       u8g_WriteEscSeqP(u8g, dev, clear_screen_sequence);
       #ifdef LCD_USE_DMA_FSMC
-        //LCD_IO_WriteMultiple(TFT_MARLINBG_COLOR, (320*240)); //@ why hard coded resolution
         LCD_IO_WriteMultiple(TFT_MARLINBG_COLOR, (480*320));
       #else
         memset2(buffer, TFT_MARLINBG_COLOR, 160);
@@ -597,22 +570,7 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
           u8g_WriteSequence(u8g, dev, 160, (uint8_t *)buffer);
       #endif
 
-      // bottom line and buttons
-      #if ENABLED(TOUCH_BUTTONS)
-        //@ check button sizes
-        u8g_WriteEscSeqP(u8g, dev, buttonD_sequence);
-        drawImage(buttonD, u8g, dev, 32, 20, TFT_BTCANCEL_COLOR);
-
-        u8g_WriteEscSeqP(u8g, dev, buttonA_sequence);
-        drawImage(buttonA, u8g, dev, 32, 20, TFT_BTARROWS_COLOR);
-
-        u8g_WriteEscSeqP(u8g, dev, buttonB_sequence);
-        drawImage(buttonB, u8g, dev, 32, 20, TFT_BTARROWS_COLOR);
-
-        u8g_WriteEscSeqP(u8g, dev, buttonC_sequence);
-        drawImage(buttonC, u8g, dev, 32, 20, TFT_BTOKMENU_COLOR);
-      #endif // TOUCH_BUTTONS
-
+      drawUIButtons(u8g, dev);
       return 0;
 
     case U8G_DEV_MSG_STOP: preinit = true; break;
@@ -627,23 +585,17 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
         return 1;
       }
 
-      uint16_t fg;
-      uint16_t bg;
-      uint8_t  ti = getCThemeColor(u8g, fg, bg);
-#ifdef _CTHEME_BY_COORDS      
+      uint16_t fg = tftForeColor;
+      uint16_t bg = tftBackColor;
       uint16_t cy = page * PAGE_HEIGHT;
-#endif // _CTHEME_BY_COORDS          
+
       for (uint8_t y = 0; y < PAGE_HEIGHT; y++) { // loop columns Y
         uint32_t k = 0;
         #ifdef LCD_USE_DMA_FSMC
           buffer = (y & 1) ? bufferB : bufferA; // alternating buffers
         #endif
         for (uint16_t i = 0; i < (uint32_t)pb->width; i++) { //loop rows X
-#ifdef _CTHEME_BY_COORDS
-          if (CTHEME_STATUS == ti) {
-            getCThemeColorByCoords(i, cy, fg, bg);
-          }
-#endif // _CTHEME_BY_COORDS          
+          getStatusColors(i, cy, fg, bg);
           const uint8_t b = *(((uint8_t *)pb->buf) + i);
           const uint16_t c = TEST(b, y) ? fg : bg;
           //@ 2x upscale X
@@ -670,9 +622,7 @@ uint8_t u8g_dev_tft_480x320_upscale_from_128x64_fn(u8g_t *u8g, u8g_dev_t *dev, u
           buffer[k++] = c;
           buffer[k++] = c;
         }
-#ifdef _CTHEME_BY_COORDS                
         ++cy;
-#endif // _CTHEME_BY_COORDS
         #ifdef LCD_USE_DMA_FSMC
           //@ 2x upscale Y 
           // resulting buffersize RGB565 * 512 - 256*2

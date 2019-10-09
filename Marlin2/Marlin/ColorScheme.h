@@ -6,32 +6,6 @@
 
 #pragma once
 
-// Indexes
-#if ENABLED(FSMC_GRAPHICAL_TFT)
-  #define CTHEME_ZEROINDEX              0
-  #define CTHEME_DEFAULTS               (CTHEME_ZEROINDEX + 0)
-  #define CTHEME_KILLSCREEN             (CTHEME_ZEROINDEX + 1)
-  #define CTHEME_BOOTSCREEN1            (CTHEME_ZEROINDEX + 2)
-  #define CTHEME_BOOTSCREEN2            (CTHEME_ZEROINDEX + 3)
-  #define CTHEME_STATUS                 (CTHEME_ZEROINDEX + 4)
-  #define CTHEME_SWITCH(Index)          u8g.getU8g()->arg_pixel.blue = Index
-  #define CTHEME_GETINDEX(u8gptr)       u8gptr->arg_pixel.blue
-#else
-  #define CTHEME_DEFAULTS               1
-  #define CTHEME_KILLSCREEN             1
-  #define CTHEME_BOOTSCREEN1            1
-  #define CTHEME_BOOTSCREEN2            1
-  #define CTHEME_STATUS                 1
-  #define CTHEME_SWITCH(Index)
-#endif
-
-#define TFT_COLOR_THEME_UNDEF   -1
-#define TFT_COLOR_BLACK_THEME   0
-#define TFT_COLOR_BLUE_THEME    1
-#define TFT_COLOR_GREEN_THEME   2
-
-#define TFT_COLOR_THEME         TFT_COLOR_BLACK_THEME
-
 inline constexpr uint16_t RGBto565(uint32_t rgbv) {
   uint32_t r = (rgbv & 0x00ff0000) >> 16;
   uint32_t g = (rgbv & 0x0000ff00) >> 8;
@@ -68,6 +42,34 @@ inline constexpr uint16_t RGBto565(uint32_t rgbv) {
 
 #define COLOR_ORANGE      0xFC00  // #FF7F00
 
+#if 0
+// Indexes
+#if ENABLED(FSMC_GRAPHICAL_TFT)
+  #define CTHEME_ZEROINDEX              0
+  #define CTHEME_DEFAULTS               (CTHEME_ZEROINDEX + 0)
+  #define CTHEME_KILLSCREEN             (CTHEME_ZEROINDEX + 1)
+  #define CTHEME_BOOTSCREEN1            (CTHEME_ZEROINDEX + 2)
+  #define CTHEME_BOOTSCREEN2            (CTHEME_ZEROINDEX + 3)
+  #define CTHEME_STATUS                 (CTHEME_ZEROINDEX + 4)
+  #define CTHEME_SWITCH(Index)          u8g.getU8g()->arg_pixel.blue = Index
+  #define CTHEME_GETINDEX(u8gptr)       u8gptr->arg_pixel.blue
+#else
+  #define CTHEME_DEFAULTS               1
+  #define CTHEME_KILLSCREEN             1
+  #define CTHEME_BOOTSCREEN1            1
+  #define CTHEME_BOOTSCREEN2            1
+  #define CTHEME_STATUS                 1
+  #define CTHEME_SWITCH(Index)
+#endif
+
+#endif 
+
+#define TFT_COLOR_THEME_UNDEF   -1
+#define TFT_COLOR_BLACK_THEME   0
+#define TFT_COLOR_BLUE_THEME    1
+#define TFT_COLOR_GREEN_THEME   2
+#define TFT_COLOR_THEME         TFT_COLOR_BLUE_THEME
+
 #undef TFT_MARLINUI_COLOR
 #undef TFT_MARLINBG_COLOR
 #undef TFT_BTCANCEL_COLOR
@@ -80,44 +82,105 @@ inline constexpr uint16_t RGBto565(uint32_t rgbv) {
   #define TFT_BTCANCEL_COLOR 0xE0E4
   #define TFT_BTARROWS_COLOR 0x01EC
   #define TFT_BTOKMENU_COLOR 0xF7CC
-  #define TFT_BOOTSCREEN1    COLOR_BLACK
-  #define TFT_BOOTSCREEN1_BG COLOR_WHITE
-  #define TFT_BOOTSCREEN2    COLOR_RED
 #elif TFT_COLOR_THEME == TFT_COLOR_BLUE_THEME
-  #define TFT_MARLINUI_COLOR COLOR_WHITE
-  #define TFT_MARLINBG_COLOR RGBto565(0x005dae)
-  #define TFT_BTCANCEL_COLOR RGBto565(0xff7276)
-  #define TFT_BTARROWS_COLOR RGBto565(0x35a5cf)
-  #define TFT_BTOKMENU_COLOR RGBto565(0x3efff4)
-  #define TFT_BOOTSCREEN1    RGBto565(0x001b33)
-  #define TFT_BOOTSCREEN1_BG TFT_MARLINBG_COLOR
-  #define TFT_BOOTSCREEN2    RGBto565(0x001b33)
+  #define TFT_MARLINUI_COLOR        RGBto565(0xdbf9fc)
+  #define TFT_BTCANCEL_BKCOLOR      RGBto565(0x720000)
+  #define TFT_MARLINBG_COLOR        RGBto565(0x001efd)
+  #define TFT_BTCANCEL_COLOR        RGBto565(0xed1e24)
+  #define TFT_BTARROWDEC_COLOR      RGBto565(0x01107e)
+  #define TFT_BTARROWDEC_BKCOLOR    RGBto565(0x412fb4)
+  #define TFT_BTARROWINC_COLOR      RGBto565(0x01107e)
+  #define TFT_BTARROWINC_BKCOLOR    RGBto565(0x412fb4)
+  #define TFT_BTOKMENU_COLOR        RGBto565(0xfde200)
+  #define TFT_BTOKMENU_BKCOLOR      RGBto565(0xf5ff4f)
+  // Boot screens
+  #define TFT_COLOR_FG_DEFAULTS     TFT_MARLINUI_COLOR
+  #define TFT_COLOR_BG_DEFAULTS     TFT_MARLINBG_COLOR
+  #define TFT_COLOR_FG_BOOTSCREEN1  COLOR_WHITE
+  #define TFT_COLOR_BG_BOOTSCREEN1  TFT_MARLINBG_COLOR
+  #define TFT_COLOR_FG_BOOTSCREEN2  COLOR_WHITE
+  #define TFT_COLOR_BG_BOOTSCREEN2  TFT_MARLINBG_COLOR
+  // Kill screen
+  #define TFT_COLOR_FG_KILLSCREEN   COLOR_YELLOW
+  #define TFT_COLOR_BG_KILLSCREEN   COLOR_RED
+  // Status screen
+  #define TFT_COLOR_FG_STATUS_LOGO  TFT_MARLINUI_COLOR
+  #define TFT_COLOR_BG_STATUS_LOGO  TFT_MARLINBG_COLOR
+  #define TFT_COLOR_FG_HOTEND       TFT_MARLINUI_COLOR
+  #define TFT_COLOR_BG_HOTEND       TFT_MARLINBG_COLOR
+  #define TFT_COLOR_FG_HOTBED       TFT_MARLINUI_COLOR
+  #define TFT_COLOR_BG_HOTBED       TFT_MARLINBG_COLOR
+  #define TFT_COLOR_FG_FAN          TFT_MARLINUI_COLOR
+  #define TFT_COLOR_BG_FAN          TFT_MARLINBG_COLOR
+  #define TFT_COLOR_FG_XYZ_FRAME    TFT_MARLINUI_COLOR
+  #define TFT_COLOR_BG_XYZ_FRAME    TFT_MARLINBG_COLOR
+  #define TFT_COLOR_FG_FR_SPD       TFT_MARLINUI_COLOR
+  #define TFT_COLOR_BG_FR_SPD       TFT_MARLINBG_COLOR
+  #define TFT_COLOR_FG_PBAR         TFT_MARLINUI_COLOR
+  #define TFT_COLOR_BG_PBAR         TFT_MARLINBG_COLOR
+  #define TFT_COLOR_FG_STAUS_LINE   TFT_MARLINUI_COLOR
+  #define TFT_COLOR_BG_STAUS_LINE   TFT_MARLINBG_COLOR
 #elif TFT_COLOR_THEME == TFT_COLOR_GREEN_THEME
   #define TFT_MARLINUI_COLOR 0xF794
   #define TFT_MARLINBG_COLOR 0x2BE7
   #define TFT_BTCANCEL_COLOR 0x962D
   #define TFT_BTARROWS_COLOR 0x5D0C
   #define TFT_BTOKMENU_COLOR 0xEF42
-  #define TFT_BOOTSCREEN1    RGBto565(0x001b33)
-  #define TFT_BOOTSCREEN1_BG TFT_MARLINBG_COLOR
-  #define TFT_BOOTSCREEN2    RGBto565(0x001b33)
-#else // default dark theme
-  #ifndef TFT_MARLINUI_COLOR
-    #define TFT_MARLINUI_COLOR COLOR_WHITE
-  #endif
-  #ifndef TFT_MARLINBG_COLOR
-    #define TFT_MARLINBG_COLOR COLOR_BLACK
-  #endif
-  #ifndef TFT_DISABLED_COLOR
-    #define TFT_DISABLED_COLOR COLOR_DARK
-  #endif
-  #ifndef TFT_BTCANCEL_COLOR
-    #define TFT_BTCANCEL_COLOR COLOR_RED
-  #endif
-  #ifndef TFT_BTARROWS_COLOR
-    #define TFT_BTARROWS_COLOR COLOR_BLUE
-  #endif
-  #ifndef TFT_BTOKMENU_COLOR
-    #define TFT_BTOKMENU_COLOR COLOR_RED
-  #endif
 #endif
+
+#ifndef TFT_MARLINUI_COLOR
+  #define TFT_MARLINUI_COLOR COLOR_WHITE
+#endif
+#ifndef TFT_MARLINBG_COLOR
+  #define TFT_MARLINBG_COLOR COLOR_BLACK
+#endif
+#ifndef TFT_DISABLED_COLOR
+  #define TFT_DISABLED_COLOR COLOR_DARK
+#endif
+#ifndef TFT_BTCANCEL_COLOR
+  #define TFT_BTCANCEL_COLOR COLOR_RED
+#endif
+#ifndef TFT_BTARROWS_COLOR
+  #define TFT_BTARROWS_COLOR COLOR_BLUE
+#endif
+#ifndef TFT_BTOKMENU_COLOR
+  #define TFT_BTOKMENU_COLOR COLOR_RED
+#endif
+
+// --------------------------------------------------------------------------------------------------------------------
+
+#ifndef TFT_COLOR_FG_KILLSCREEN
+#endif
+
+// --------------------------------------------------------------------------------------------------------------------
+
+#define _TFT_FLG_NORMAL        0
+#define _TFT_FLG_BOOT_SCREEN   1
+#define _TFT_FLG_KILL_SCREEN   2
+#define _TFT_FLG_STATUS_SCREEN 3
+#define _TFT_SCREEN_MASK       0x1f
+
+#if ENABLED(FSMC_GRAPHICAL_TFT)
+  #ifdef __cplusplus
+    extern "C" {
+  #endif
+      void tftSetFgColor(uint16_t v);
+      void tftSetBgColor(uint16_t v);
+      void tftSetFlags(uint16_t flags);
+  #ifdef __cplusplus    
+    }
+  #endif
+  #define CTHEME_SETC(CLR)            do { tftSetFgColor(CLR); } while (0)
+  #define CTHEME_SETB(BK)             do { tftSetBgColor(BK); } while (0)
+  #define CTHEME_SETCB(CLR, BK)       do { tftSetFgColor(CLR); tftSetBgColor(BK); } while (0)
+  #define CTHEME_SEL(SYM)             CTHEME_SETCB(TFT_COLOR_FG_##SYM, TFT_COLOR_BG_##SYM)
+  #define CTHEME_FLAGS(FLG)           do { tftSetFlags(FLG); } while (0)
+#else
+  #define CTHEME_SETC(CLR)
+  #define CTHEME_SETB(BK)
+  #define CTHEME_SETCB(CLR, BK)
+  #define CTHEME_SEL(SYM)
+  #define CTHEME_FLAGS(FLG)
+#endif
+
+// --------------------------------------------------------------------------------------------------------------------

@@ -231,11 +231,12 @@ bool MarlinUI::detected() { return true; }
   }
 
   void MarlinUI::show_bootscreen() {
+    CTHEME_FLAGS(_TFT_FLG_BOOT_SCREEN);
     #if ENABLED(SHOW_CUSTOM_BOOTSCREEN)
-      CTHEME_SWITCH(CTHEME_BOOTSCREEN1);
+      CTHEME_SEL(BOOTSCREEN1);
       show_custom_bootscreen();
     #endif
-    CTHEME_SWITCH(CTHEME_BOOTSCREEN2);
+    CTHEME_SEL(BOOTSCREEN2);
     show_marlin_bootscreen();
     clear_lcd();
   }
@@ -300,7 +301,8 @@ void MarlinUI::draw_kill_screen() {
     ST7920_Lite_Status_Screen::clear_text_buffer();
   #endif
   const u8g_uint_t h4 = u8g.getHeight() / 4;
-  CTHEME_SWITCH(CTHEME_KILLSCREEN);
+  CTHEME_FLAGS(_TFT_FLG_KILL_SCREEN);
+  CTHEME_SEL(KILLSCREEN);
   u8g.firstPage();
   do {
     set_font(FONT_MENU);
@@ -311,12 +313,7 @@ void MarlinUI::draw_kill_screen() {
 }
 
 void MarlinUI::clear_lcd() { // Automatically cleared by Picture Loop
-  if (currentScreen == status_screen) {
-    CTHEME_SWITCH(CTHEME_STATUS);
-  }
-  else {
-    CTHEME_SWITCH(CTHEME_DEFAULTS);
-  }
+  CTHEME_FLAGS(currentScreen == status_screen ? _TFT_FLG_STATUS_SCREEN : _TFT_FLG_NORMAL);
 }
 
 #if HAS_LCD_MENU
