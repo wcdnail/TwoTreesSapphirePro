@@ -1,5 +1,9 @@
 ![alert-banner](Docs/repo-banner.png?raw=true "Версия сырая! Ставить на свой СТРАХ и РИСК!")
-* Баг №1 - произвольное движение каретки при печати
+* Баг №1 - произвольное движение каретки при печати. Перестал проявляться, после снижения скорости до 40-50 мм/с. Буду проверять еще.
+
+### С графикой помог Korbinian Heel
+https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT<br/>
+https://escope.de/posts/sapphire-pro-marlin/<br/>
 
 ### Версия марлин - 2.0.x bugfix, взята 03.10.2019
 ![sapphire-pro-1-marlin-status](Docs/hints-1/status-screen.jpg?raw=true)
@@ -20,21 +24,23 @@
   PID|483|
   EXTRUDE_MAXLENGTH|569|
   Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT|730|
-  Размер стола|1070|
-  Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR|1120|ВЫКЛ
-  Калибровка стола MESH_BED_LEVELING|1186|
-  Калибровка стола LCD_BED_LEVELING|1290|
-  Калибровка стола LEVEL_BED_CORNERS|1299|
-  Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS|1322|MANUAL_Z_HOME_POS: ВЫКЛ
-  Настройка пред-нагрева PREHEAT_* |1458|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
-  Парковка хот-энда NOZZLE_PARK_FEATURE|1479|
-  Язык интерфейса LCD_LANGUAGE|1600|Русский
-  Проверка целостности чтения файлов SD_CHECK_AND_RETRY|1657|
-  "Пищалка" SPEAKER|1728|При включении SPEAKER, **прошивка зависает!**
+  Размер стола|1068|
+  Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR|1118|ВЫКЛ
+  Калибровка стола MESH_BED_LEVELING|1184|
+  Калибровка стола LCD_BED_LEVELING|1288|
+  Калибровка стола LEVEL_BED_CORNERS|1297|
+  Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS|1320|MANUAL_Z_HOME_POS: ВЫКЛ
+  Настройка пред-нагрева PREHEAT_* |1456|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
+  Парковка хот-энда NOZZLE_PARK_FEATURE|1477|
+  Язык интерфейса LCD_LANGUAGE|1589|Русский
+  Проверка целостности чтения файлов SD_CHECK_AND_RETRY|1655|
+  "Пищалка" SPEAKER|1726|При включении SPEAKER, **прошивка зависает!**
   
 #### Configuration_adv.h
   Конфигурация|Строка|Примечание
   ------------|------|----------
+  HOMING_BACKOFF_MM|524|ВЫКЛ
+  HOME_AFTER_DEACTIVATE|647|ВЫКЛ
   M73 прогресс LCD_SET_PROGRESS_MANUALLY|888|
   Отображение статуса|1143|
   Linear Advanced|1329|
@@ -66,8 +72,6 @@
 # Железо SapphirePro
 
 * Дисплей - MKS TFT35 (3.5" (~9см)) 480*320<br/>
-  Нашел нормальную реализацию масштабирования тут - https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT<br/>
-  https://escope.de/posts/sapphire-pro-marlin/<br/>
 
 # Стоковые прошивки
 `StockFirmwares`
