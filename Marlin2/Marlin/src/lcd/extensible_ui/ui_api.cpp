@@ -622,7 +622,7 @@ namespace ExtUI {
     }
   #endif
 
-  #if ENABLED(JUNCTION_DEVIATION)
+  #if DISABLED(CLASSIC_JERK)
 
     float getJunctionDeviation_mm() {
       return planner.junction_deviation_mm;
@@ -818,9 +818,6 @@ namespace ExtUI {
             bed_level_virt_interpolate();
           #endif
         }
-      }
-      void onMeshUpdate(const uint8_t xpos, const uint8_t ypos, const float zval) {
-        UNUSED(xpos); UNUSED(ypos); UNUSED(zval);
       }
     #endif
   #endif
