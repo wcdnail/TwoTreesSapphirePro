@@ -149,11 +149,6 @@ inline constexpr uint16_t RGBto565(uint32_t rgbv) {
 
 // --------------------------------------------------------------------------------------------------------------------
 
-#ifndef TFT_COLOR_FG_KILLSCREEN
-#endif
-
-// --------------------------------------------------------------------------------------------------------------------
-
 #define _TFT_FLG_NORMAL        0
 #define _TFT_FLG_BOOT_SCREEN   1
 #define _TFT_FLG_KILL_SCREEN   2
