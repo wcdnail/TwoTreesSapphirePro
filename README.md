@@ -5,7 +5,7 @@
 https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT<br/>
 https://escope.de/posts/sapphire-pro-marlin/<br/>
 
-### Версия марлин - 2.0.x bugfix, обновлена 09.10.2019
+### Версия марлин - 2.0.x bugfix, обновлена 10.10.2019
 ![sapphire-pro-1-marlin-status](Docs/hints-1/status-screen.jpg?raw=true)
 
 Собирать лучше всего с помощью Visual Studio Code + PlatformIO<br/>
