@@ -83,7 +83,7 @@ inline constexpr uint16_t RGBto565(uint32_t rgbv) {
   #define TFT_BTARROWS_COLOR 0x01EC
   #define TFT_BTOKMENU_COLOR 0xF7CC
 #elif TFT_COLOR_THEME == TFT_COLOR_BLUE_THEME
-  #define TFT_MARLINUI_COLOR        RGBto565(0xdbf9fc)
+  #define TFT_MARLINUI_COLOR        RGBto565(0xfae5ff)
   #define TFT_BTCANCEL_BKCOLOR      RGBto565(0x720000)
   #define TFT_MARLINBG_COLOR        RGBto565(0x001efd)
   #define TFT_BTCANCEL_COLOR        RGBto565(0xed1e24)
@@ -92,7 +92,7 @@ inline constexpr uint16_t RGBto565(uint32_t rgbv) {
   #define TFT_BTARROWINC_COLOR      RGBto565(0x01107e)
   #define TFT_BTARROWINC_BKCOLOR    RGBto565(0x412fb4)
   #define TFT_BTOKMENU_COLOR        RGBto565(0xfde200)
-  #define TFT_BTOKMENU_BKCOLOR      RGBto565(0xf5ff4f)
+  #define TFT_BTOKMENU_BKCOLOR      RGBto565(0xffa000)
   // Boot screens
   #define TFT_COLOR_FG_DEFAULTS     TFT_MARLINUI_COLOR
   #define TFT_COLOR_BG_DEFAULTS     TFT_MARLINBG_COLOR
