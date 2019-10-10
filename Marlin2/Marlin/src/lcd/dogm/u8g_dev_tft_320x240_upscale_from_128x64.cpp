@@ -61,7 +61,7 @@
 
 #include "HAL_LCD_com_defines.h"
 #include "ultralcd_DOGM.h"
-#include "../../../ColorScheme.h"
+
 #include <string.h>
 
 #if ENABLED(LCD_USE_DMA_FSMC)
@@ -387,7 +387,7 @@ static const uint8_t ili9341_init_sequence[] = { // 0x9341 - ILI9341
     B01111111,B11111111,B11111111,B11111110,
   };
 
-  static void drawImage(const uint8_t *data, u8g_t *u8g, u8g_dev_t *dev, uint16_t length, uint16_t height, uint16_t color) {
+  void drawImage(const uint8_t *data, u8g_t *u8g, u8g_dev_t *dev, uint16_t length, uint16_t height, uint16_t color) {
     uint16_t buffer[128];
 
     for (uint16_t i = 0; i < height; i++) {
