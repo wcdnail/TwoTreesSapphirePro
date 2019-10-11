@@ -42,11 +42,11 @@ https://escope.de/posts/sapphire-pro-marlin/<br/>
   HOMING_BACKOFF_MM|524|ВЫКЛ
   HOME_AFTER_DEACTIVATE|647|ВЫКЛ
   M73 прогресс LCD_SET_PROGRESS_MANUALLY|888|
-  Отображение статуса|1143|
-  Linear Advanced|1329|
-  Ретракт|1580|пока ВЫКЛ
-  Расширенная пауза|1639|
-  FILAMENT_CHANGE_UNLOAD_LENGTH|1646|
+  Отображение статуса|1144|
+  Linear Advance|1330|
+  Ретракт|1581|пока ВЫКЛ
+  Расширенная пауза|1640|
+  FILAMENT_CHANGE_UNLOAD_LENGTH|1647|
 
 ### Графика
 [Конвертер графики](http://marlinfw.org/tools/u8glib/converter.html)<br/>
