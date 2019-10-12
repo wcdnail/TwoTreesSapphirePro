@@ -487,7 +487,7 @@ static void getStatusColors(uint16_t x, uint16_t y, uint16_t& fore, uint16_t& ba
   static const uint16_t _XYZ_HOLLOW_FRAME_bottom = _XYZ_HOLLOW_FRAME_top + 11;
   static const uint16_t         _STATUS_LINE_top = _XYZ_HOLLOW_FRAME_bottom + 14;
   static const uint16_t       _STATUS_LOGO_WIDTH = 45;
-  static const uint16_t                _FAN_LEFT = WIDTH - 23;
+  static const uint16_t                _FAN_LEFT = WIDTH - 24;
   static const uint16_t                _BED_LEFT = _FAN_LEFT - 24;
   static const uint16_t               _PBAR_LEFT = 37;
   #define _GSC_SETC(CLR)      do { fore = CLR; } while (0)
