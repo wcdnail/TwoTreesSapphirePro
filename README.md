@@ -1,4 +1,4 @@
-# Marlin 2 bugfix для TwoTrees Sapphire Pro
+# Marlin для TwoTrees Sapphire Pro (MKS Robin Nano STM32F103VET6)
 ## Версия марлин - 2.0.x bugfix, обновлена 10.10.2019
 ### Ставить на свой СТРАХ и РИСК!
 
@@ -74,8 +74,8 @@ https://escope.de/posts/sapphire-pro-marlin/<br/>
 ![sapphire-pro-bed-size-repetier](Docs/hints/sapphire-pro-bed-size-repetier.png?raw=true "Размер стола в Repetier-Host")
 
 # Железо SapphirePro
-
-* Дисплей - MKS TFT35 (3.5" (~9см)) 480*320<br/>
+ - Матплата - MKS Robin Nano STM32F103VET6
+ - Дисплей - MKS TFT35 (3.5" (~9см)) 480*320<br/>
 
 # Стоковые прошивки
 `StockFirmwares`
