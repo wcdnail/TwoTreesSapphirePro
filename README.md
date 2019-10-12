@@ -6,7 +6,7 @@
 ## Драйвера Z & E заменены на 2208
 ### Баг №1 - произвольное движение каретки при печати. **Перестал проявляться**. Буду проверять еще.
 
-### С графикой помог Korbinian Heel
+### С графикой помог Korbinian Heel [[@inib](https://github.com/inib)]
 https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT<br/>
 https://escope.de/posts/sapphire-pro-marlin/<br/>
 
@@ -86,3 +86,14 @@ https://escope.de/posts/sapphire-pro-marlin/<br/>
 ![sapphire-pro-3-marlin-status](Docs/hints-3/status.jpg?raw=true)
 ![sapphire-pro-3-marlin-status](Docs/hints-3/menu.jpg?raw=true)
 ![sapphire-pro-3-marlin-status](Docs/hints-3/about.jpg?raw=true)
+
+# Благодарность
+## Команде разработчиков марлин
+ - Scott Lahteine [[@thinkyhead](https://github.com/thinkyhead)] - USA &nbsp; [![Flattr Scott](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=thinkyhead&url=https://github.com/MarlinFirmware/Marlin&title=Marlin&language=&tags=github&category=software)
+ - Roxanne Neufeld [[@Roxy-3D](https://github.com/Roxy-3D)] - USA
+ - Bob Kuhn [[@Bob-the-Kuhn](https://github.com/Bob-the-Kuhn)] - USA
+ - Chris Pepper [[@p3p](https://github.com/p3p)] - UK
+ - João Brazio [[@jbrazio](https://github.com/jbrazio)] - Portugal
+ - Erik van der Zalm [[@ErikZalm](https://github.com/ErikZalm)] - Netherlands &nbsp; [![Flattr Erik](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=ErikZalm&url=https://github.com/MarlinFirmware/Marlin&title=Marlin&language=&tags=github&category=software)
+## С графикой помог
+ - Korbinian Heel [[@inib](https://github.com/inib)] https://escope.de/posts/sapphire-pro-marlin/
