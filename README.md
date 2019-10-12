@@ -1,14 +1,16 @@
-![alert-banner](Docs/repo-banner.png?raw=true "Версия сырая! Ставить на свой СТРАХ и РИСК!")
-* Баг №1 - произвольное движение каретки при печати. Перестал проявляться, после снижения скорости до 40-50 мм/с. Буду проверять еще.
+# Marlin 2 bugfix для TwoTrees Sapphire Pro
+## Версия марлин - 2.0.x bugfix, обновлена 10.10.2019
+### Ставить на свой СТРАХ и РИСК!
+
+# Внимание!
+## Драйвера Z & E заменены на 2208
+### Баг №1 - произвольное движение каретки при печати. **Перестал проявляться**. Буду проверять еще.
 
 ### С графикой помог Korbinian Heel
 https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT<br/>
 https://escope.de/posts/sapphire-pro-marlin/<br/>
 
-### Версия марлин - 2.0.x bugfix, обновлена 10.10.2019
-![sapphire-pro-1-marlin-status](Docs/hints-1/status-screen.jpg?raw=true)
-
-Собирать лучше всего с помощью Visual Studio Code + PlatformIO<br/>
+### Собирать лучше всего с помощью Visual Studio Code + PlatformIO
 [Инструкция по установке Visual Studio Code + PlatformIO](https://docs.platformio.org/en/latest/ide/vscode.html)<br/>
 
 ### Прошивка SapphirePro:
@@ -19,34 +21,36 @@ https://escope.de/posts/sapphire-pro-marlin/<br/>
 
 ### Конфигурация прошивки
 #### Configuration.h
-  Конфигурация|Строка|Примечание
-  ------------|------|----------
-  PID|483|
-  EXTRUDE_MAXLENGTH|569|
-  Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT|730|
-  Размер стола|1068|
-  Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR|1118|ВЫКЛ
-  Калибровка стола MESH_BED_LEVELING|1184|
-  Калибровка стола LCD_BED_LEVELING|1288|
-  Калибровка стола LEVEL_BED_CORNERS|1297|
-  Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS|1320|MANUAL_Z_HOME_POS: ВЫКЛ
-  Настройка пред-нагрева PREHEAT_* |1456|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
-  Парковка хот-энда NOZZLE_PARK_FEATURE|1477|
-  Язык интерфейса LCD_LANGUAGE|1589|Русский
-  Проверка целостности чтения файлов SD_CHECK_AND_RETRY|1655|
-  "Пищалка" SPEAKER|1726|При включении SPEAKER, **прошивка зависает!**
+  Наименование                                                      |Строка |Примечание
+  ------------------------------------------------------------------|-------|----------
+  PID                                                               |    482|
+  EXTRUDE_MAXLENGTH                                                 |    568|
+  Константы драйверов                                               |    672|**Z_DRIVER_TYPE  TMC2208_STANDALONE** **E0_DRIVER_TYPE TMC2208_STANDALONE**
+  Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT                       |    729|
+  INVERT_ * _DIR                                                    |   1031|**INVERT_Z_DIR true** **INVERT_E0_DIR true**
+  Размер стола                                                      |   1067|
+  Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR                 |   1117|ВЫКЛ
+  Калибровка стола MESH_BED_LEVELING                                |   1183|
+  Калибровка стола LCD_BED_LEVELING                                 |   1287|
+  Калибровка стола LEVEL_BED_CORNERS                                |   1296|
+  Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS   |   1319|MANUAL_Z_HOME_POS: ВЫКЛ
+  Настройка пред-нагрева PREHEAT_*                                  |   1455|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
+  Парковка хот-энда NOZZLE_PARK_FEATURE                             |   1476|
+  Язык интерфейса LCD_LANGUAGE                                      |   1588|Русский
+  Проверка целостности чтения файлов SD_CHECK_AND_RETRY             |   1654|
+  "Пищалка" SPEAKER                                                 |   1725|При включении SPEAKER, **прошивка зависает!**
   
 #### Configuration_adv.h
-  Конфигурация|Строка|Примечание
-  ------------|------|----------
-  HOMING_BACKOFF_MM|524|ВЫКЛ
-  HOME_AFTER_DEACTIVATE|647|ВЫКЛ
-  M73 прогресс LCD_SET_PROGRESS_MANUALLY|888|
-  Отображение статуса|1144|
-  Linear Advance|1330|
-  Ретракт|1581|пока ВЫКЛ
-  Расширенная пауза|1640|
-  FILAMENT_CHANGE_UNLOAD_LENGTH|1647|
+  Наименование                                                      |Строка |Примечание
+  ------------------------------------------------------------------|-------|----------
+  HOMING_BACKOFF_MM                                                 |    524|ВЫКЛ
+  HOME_AFTER_DEACTIVATE                                             |    647|ВЫКЛ
+  M73 прогресс LCD_SET_PROGRESS_MANUALLY                            |    888|
+  Отображение статуса                                               |   1144|
+  Linear Advance                                                    |   1330|
+  Ретракт                                                           |   1581|пока ВЫКЛ
+  Расширенная пауза                                                 |   1640|
+  FILAMENT_CHANGE_UNLOAD_LENGTH                                     |   1647|
 
 ### Графика
 [Конвертер графики](http://marlinfw.org/tools/u8glib/converter.html)<br/>
@@ -75,3 +79,10 @@ https://escope.de/posts/sapphire-pro-marlin/<br/>
 
 # Стоковые прошивки
 `StockFirmwares`
+
+### Скрины
+![sapphire-pro-3-marlin-status](Docs/hints-3/boot1.jpg?raw=true)
+![sapphire-pro-3-marlin-status](Docs/hints-3/boot2.jpg?raw=true)
+![sapphire-pro-3-marlin-status](Docs/hints-3/status.jpg?raw=true)
+![sapphire-pro-3-marlin-status](Docs/hints-3/menu.jpg?raw=true)
+![sapphire-pro-3-marlin-status](Docs/hints-3/about.jpg?raw=true)
