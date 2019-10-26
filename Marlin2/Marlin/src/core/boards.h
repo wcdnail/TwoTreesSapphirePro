@@ -21,6 +21,8 @@
  */
 #pragma once
 
+#include "macros.h"
+
 #define BOARD_UNKNOWN -1
 
 //
@@ -287,7 +289,7 @@
 //
 
 #define BOARD_BEAST                   4200  // STM32F4xxVxT6 Libmaple-based STM32F4 controller
-#define BOARD_STM32F4                 4201  // STM32 STM32GENERIC-based STM32F4 controller
+#define BOARD_GENERIC_STM32F4         4201  // STM32 STM32GENERIC-based STM32F4 controller
 #define BOARD_ARMED                   4202  // Arm'ed STM32F4-based controller
 #define BOARD_RUMBA32                 4203  // RUMBA32 STM32F4-based controller
 #define BOARD_BLACK_STM32F407VE       4204  // BLACK_STM32F407VE
@@ -308,7 +310,7 @@
 //
 // Espressif ESP32 WiFi
 //
-#define BOARD_ESP32                   6000
+#define BOARD_ESPRESSIF_ESP32         6000
 
 //
 // Simulations
@@ -316,4 +318,7 @@
 
 #define BOARD_LINUX_RAMPS             9999
 
-#define MB(board) (defined(BOARD_##board) && MOTHERBOARD==BOARD_##board)
+#define _MB_1(B)  (defined(BOARD_##B) && MOTHERBOARD==BOARD_##B)
+#define MB(V...)  DO(MB,||,V)
+
+#define IS_MELZI MB(MELZI, MELZI_CREALITY, MELZI_MAKR3D, MELZI_MALYAN, MELZI_TRONXY)

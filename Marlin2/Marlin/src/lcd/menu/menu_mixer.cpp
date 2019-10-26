@@ -29,11 +29,9 @@
 #if HAS_LCD_MENU && ENABLED(MIXING_EXTRUDER)
 
 #include "menu.h"
-#include "../../feature/mixing.h"
+#include "menu_addon.h"
 
-#include "../dogm/ultralcd_DOGM.h"
-#include "../ultralcd.h"
-#include "../lcdprint.h"
+#include "../../feature/mixing.h"
 
 #define CHANNEL_MIX_EDITING !DUAL_MIXING_EXTRUDER
 
@@ -43,7 +41,7 @@
     ui.defer_status_screen();
     ENCODER_RATE_MULTIPLY(true);
     if (ui.encoderPosition != 0) {
-      mixer.gradient.start_z += float(int16_t(ui.encoderPosition)) * 0.1;
+      mixer.gradient.start_z += float(int32_t(ui.encoderPosition)) * 0.1;
       ui.encoderPosition = 0;
       NOLESS(mixer.gradient.start_z, 0);
       NOMORE(mixer.gradient.start_z, Z_MAX_POS);
@@ -68,7 +66,7 @@
     ui.defer_status_screen();
     ENCODER_RATE_MULTIPLY(true);
     if (ui.encoderPosition != 0) {
-      mixer.gradient.end_z += float(int16_t(ui.encoderPosition)) * 0.1;
+      mixer.gradient.end_z += float(int32_t(ui.encoderPosition)) * 0.1;
       ui.encoderPosition = 0;
       NOLESS(mixer.gradient.end_z, 0);
       NOMORE(mixer.gradient.end_z, Z_MAX_POS);
@@ -187,7 +185,7 @@ void lcd_mixer_mix_edit() {
   #elif DUAL_MIXING_EXTRUDER
 
     if (ui.encoderPosition != 0) {
-      mixer.mix[0] += int16_t(ui.encoderPosition);
+      mixer.mix[0] += int32_t(ui.encoderPosition);
       ui.encoderPosition = 0;
       if (mixer.mix[0] < 0) mixer.mix[0] += 101;
       if (mixer.mix[0] > 100) mixer.mix[0] -= 101;
