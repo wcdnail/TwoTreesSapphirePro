@@ -36,7 +36,7 @@ https://escope.de/posts/sapphire-pro-marlin/<br/>
   Калибровка стола LCD_BED_LEVELING                                 |   1302|
   Калибровка стола LEVEL_BED_CORNERS                                |   1311|
   Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS   |   1335|MANUAL_Z_HOME_POS: ВЫКЛ
-  Z_SAFE_HOMING                                                     |   1349|((X_BED_SIZE) / 2) ((Y_BED_SIZE) / 2)
+  Z_SAFE_HOMING                                                     |   1349|
   Настройка пред-нагрева PREHEAT_*                                  |   1472|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
   Парковка хот-энда NOZZLE_PARK_FEATURE                             |   1494|
   Язык интерфейса LCD_LANGUAGE                                      |   1615|Русский
