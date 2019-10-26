@@ -23,22 +23,24 @@ https://escope.de/posts/sapphire-pro-marlin/<br/>
 #### Configuration.h
   Наименование                                                      |Строка |Примечание
   ------------------------------------------------------------------|-------|----------
-  PID                                                               |    482|
-  EXTRUDE_MAXLENGTH                                                 |    568|
-  Константы драйверов                                               |    672|**Z_DRIVER_TYPE  TMC2208_STANDALONE** **E0_DRIVER_TYPE TMC2208_STANDALONE**
-  Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT                       |    729|
-  INVERT_ * _DIR                                                    |   1031|**INVERT_Z_DIR true** **INVERT_E0_DIR true**
-  Размер стола                                                      |   1067|
-  Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR                 |   1117|ВЫКЛ
-  Калибровка стола MESH_BED_LEVELING                                |   1183|
-  Калибровка стола LCD_BED_LEVELING                                 |   1287|
-  Калибровка стола LEVEL_BED_CORNERS                                |   1296|
-  Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS   |   1319|MANUAL_Z_HOME_POS: ВЫКЛ
-  Настройка пред-нагрева PREHEAT_*                                  |   1455|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
-  Парковка хот-энда NOZZLE_PARK_FEATURE                             |   1476|
-  Язык интерфейса LCD_LANGUAGE                                      |   1588|Русский
-  Проверка целостности чтения файлов SD_CHECK_AND_RETRY             |   1654|
-  "Пищалка" SPEAKER                                                 |   1725|При включении SPEAKER, **прошивка зависает!**
+  PID                                                               |    467|M303 E0 S200 C8
+  PIDTEMPBED                                                        |    518|M303 E-1 C8 S90
+  EXTRUDE_MAXLENGTH                                                 |    571|
+  Константы драйверов                                               |    678|**Z_DRIVER_TYPE  TMC2208_STANDALONE** **E0_DRIVER_TYPE TMC2208_STANDALONE**
+  Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT                       |    736|M302 P1 (disable cold extrusion checking)
+  INVERT_ * _DIR                                                    |   1028|**INVERT_Z_DIR true** **INVERT_E0_DIR true**
+  Размер стола                                                      |   1081|
+  Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR                 |   1131|ВЫКЛ
+  Калибровка стола MESH_BED_LEVELING                                |   1197|
+  Калибровка стола MESH_BED_LEVELING настройки                      |   1290|
+  Калибровка стола LCD_BED_LEVELING                                 |   1302|
+  Калибровка стола LEVEL_BED_CORNERS                                |   1311|
+  Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS   |   1335|MANUAL_Z_HOME_POS: ВЫКЛ
+  Настройка пред-нагрева PREHEAT_*                                  |   1472|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
+  Парковка хот-энда NOZZLE_PARK_FEATURE                             |   1494|
+  Язык интерфейса LCD_LANGUAGE                                      |   1615|Русский
+  Проверка целостности чтения файлов SD_CHECK_AND_RETRY             |   1675|
+  "Пищалка" SPEAKER                                                 |   1747|При включении SPEAKER, **прошивка зависает!**
   
 #### Configuration_adv.h
   Наименование                                                      |Строка |Примечание
