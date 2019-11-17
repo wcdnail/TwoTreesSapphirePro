@@ -731,7 +731,7 @@
 /**
  * Default Axis Steps Per Unit (steps/mm)
  * Override with M92
- *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
+ *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 //@ settings from 1.0.3 stock firmware [E подправлен]
 #define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.3, 80.4, 1600, 411.1 }
@@ -739,7 +739,7 @@
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
- *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
+ *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 //@ keep speed reasonable
 #define DEFAULT_MAX_FEEDRATE          { 200, 200, 4, 75 }
@@ -753,7 +753,7 @@
  * Default Max Acceleration (change/s) change = mm/s
  * (Maximum start speed for accelerated moves)
  * Override with M201
- *                                      X, Y, Z, E0 [, E1[, E2[, E3[, E4[, E5]]]]]
+ *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
 //@ keep speed reasonable
 #define DEFAULT_MAX_ACCELERATION      { 2000, 2000, 100, 1000 }
@@ -1079,17 +1079,17 @@
 // The size of the print bed
 
 // SapphirePro
-#define X_BED_SIZE 222.9
+#define X_BED_SIZE 220
 #define Y_BED_SIZE 220
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 
 // Sapphire Pro
-#define X_MIN_POS (-2.9)
-#define Y_MIN_POS (7.5)
+#define X_MIN_POS 0
+#define Y_MIN_POS 0
 #define Z_MIN_POS 0
-#define X_MAX_POS (X_MIN_POS + X_BED_SIZE)
-#define Y_MAX_POS (Y_MIN_POS + Y_BED_SIZE)
+#define X_MAX_POS X_BED_SIZE
+#define Y_MAX_POS Y_BED_SIZE
 #define Z_MAX_POS 200
 
 /**
@@ -1333,8 +1333,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS X_MIN_POS
-#define MANUAL_Y_HOME_POS Y_MAX_POS
+#define MANUAL_X_HOME_POS -2.9
+#define MANUAL_Y_HOME_POS (Y_BED_SIZE + 7.5)
 //#define MANUAL_Z_HOME_POS 0
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
@@ -1349,8 +1349,8 @@
 #define Z_SAFE_HOMING
 
 #if ENABLED(Z_SAFE_HOMING)
-  #define Z_SAFE_HOMING_X_POINT X_MIN_POS    // X point for Z homing when homing all axes (G28).
-  #define Z_SAFE_HOMING_Y_POINT Y_MAX_POS    // Y point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_X_POINT (46)    // X point for Z homing when homing all axes (G28).
+  #define Z_SAFE_HOMING_Y_POINT (100)    // Y point for Z homing when homing all axes (G28).
 #endif
 
 // Homing speeds (mm/m)

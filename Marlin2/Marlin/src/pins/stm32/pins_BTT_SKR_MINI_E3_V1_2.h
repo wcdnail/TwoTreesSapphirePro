@@ -35,7 +35,7 @@
 
 #define FLASH_EEPROM_EMULATION
 #define EEPROM_PAGE_SIZE     uint16(0x800) // 2KB
-#define EEPROM_START_ADDRESS uint32(0x8000000 + 256 * 1024 - 2 * EEPROM_PAGE_SIZE)
+#define EEPROM_START_ADDRESS uint32(0x8000000 + (STM32_FLASH_SIZE) * 1024 - 2 * EEPROM_PAGE_SIZE)
 #undef E2END
 #define E2END                (EEPROM_PAGE_SIZE - 1) // 2KB
 
@@ -60,7 +60,7 @@
 // Filament Runout Sensor
 //
 #ifndef FIL_RUNOUT_PIN
-  #define FIL_RUNOUT_PIN   PC12
+  #define FIL_RUNOUT_PIN   PC15   // "E0-STOP"
 #endif
 
 //
@@ -100,6 +100,9 @@
 
   #define E0_SERIAL_TX_PIN PC11
   #define E0_SERIAL_RX_PIN PC11
+
+  // Reduce baud rate to improve software serial reliability
+  #define TMC_BAUD_RATE 19200
 #endif
 
 //
