@@ -1,6 +1,6 @@
 # Marlin для TwoTrees Sapphire Pro (MKS Robin Nano STM32F103VET6)
-## Версия марлин - 2.0.x bugfix, обновлена 26.10.2019
-### Ставить на свой СТРАХ и РИСК!
+## Версия марлин - 2.0.x bugfix, обновлена 23.11.2019
+### Настройки сохраняются в SPI Flash (см. Marlin2/src/HAL/HAL_STM32F1/persistent_store_spi_flash.cpp)
 
 # Внимание!
 ## Драйвера Z & E заменены на 2208
@@ -23,45 +23,47 @@ https://escope.de/posts/sapphire-pro-marlin/<br/>
 #### Конфигурация стола
   Наименование                                                      |Строка |Примечание
   ------------------------------------------------------------------|-------|----------
-  Размер стола                                                      |   1087|
-  Минимумы и максимумы стола                                        |   1093|
-  Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS   |   1343|
-  Z_SAFE_HOMING                                                     |   1356|
+  Размер стола                                                      |   1088|
+  Минимумы и максимумы стола                                        |   1094|
+  Смещение "домашней" позиции MANUAL_X_HOME_POS MANUAL_Y_HOME_POS   |   1344|
+  Z_SAFE_HOMING                                                     |   1357|
 #### Конфигурация PID
   Наименование                                                      |Строка |Примечание
   ------------------------------------------------------------------|-------|----------
-  PID                                                               |    467|M303 E0 S200 C8
-  PIDTEMPBED                                                        |    518|M303 E-1 C8 S90
+  PID                                                               |    502|M303 E0 S200 C8
+  PIDTEMPBED                                                        |    554|M303 E-1 C8 S90
 #### Остальные настройки
   Наименование                                                      |Строка |Примечание
   ------------------------------------------------------------------|-------|----------
-  EXTRUDE_MAXLENGTH                                                 |    571|
-  Константы драйверов                                               |    678|**Z_DRIVER_TYPE  TMC2208_STANDALONE** **E0_DRIVER_TYPE TMC2208_STANDALONE**
-  Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT                       |    736|M302 P1 (disable cold extrusion checking)
-  INVERT_ * _DIR                                                    |   1028|**INVERT_Z_DIR true** **INVERT_E0_DIR true**
-  Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR                 |   1131|ВЫКЛ
-  Калибровка стола MESH_BED_LEVELING                                |   1197|
-  Калибровка стола MESH_BED_LEVELING настройки                      |   1290|
-  Калибровка стола LCD_BED_LEVELING                                 |   1302|
-  Калибровка стола LEVEL_BED_CORNERS                                |   1311|
-  Настройка пред-нагрева PREHEAT_*                                  |   1472|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
-  Парковка хот-энда NOZZLE_PARK_FEATURE                             |   1494|
-  Язык интерфейса LCD_LANGUAGE                                      |   1615|Русский
-  Проверка целостности чтения файлов SD_CHECK_AND_RETRY             |   1675|
-  "Пищалка" SPEAKER                                                 |   1747|При включении SPEAKER, **прошивка зависает!**
+  EXTRUDE_MAXLENGTH                                                 |    578|
+  Константы драйверов                                               |    685|**Z_DRIVER_TYPE  TMC2208_STANDALONE** **E0_DRIVER_TYPE TMC2208_STANDALONE**
+  Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT                       |    743|M302 P1 (disable cold extrusion checking)
+  INVERT_ * _DIR                                                    |   1051|**INVERT_Z_DIR true** **INVERT_E0_DIR true**
+  Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR                 |   1138|ВЫКЛ
+  Калибровка стола AUTO_BED_LEVELING_BILINEAR                       |   1202|
+  Калибровка стола MESH_BED_LEVELING                                |   1204|ВЫКЛ
+  Калибровка стола MESH_BED_LEVELING настройки                      |   1297|ВЫКЛ
+  Калибровка стола LCD_BED_LEVELING                                 |   1310|
+  Калибровка стола LEVEL_BED_CORNERS                                |   1320|
+  EEPROM_SETTINGS                                                   |   1444|
+  Настройка пред-нагрева PREHEAT_*                                  |   1480|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
+  Парковка хот-энда NOZZLE_PARK_FEATURE                             |   1502|
+  Язык интерфейса LCD_LANGUAGE                                      |   1623|Русский
+  Проверка целостности чтения файлов SD_CHECK_AND_RETRY             |   1683|
+  "Пищалка" SPEAKER                                                 |   1755|При включении SPEAKER, **прошивка зависает!**
   
   
 ### Configuration_adv.h
   Наименование                                                      |Строка |Примечание
   ------------------------------------------------------------------|-------|----------
-  HOMING_BACKOFF_MM                                                 |    524|ВЫКЛ
-  HOME_AFTER_DEACTIVATE                                             |    647|ВЫКЛ
-  M73 прогресс LCD_SET_PROGRESS_MANUALLY                            |    888|
-  Отображение статуса                                               |   1144|
-  Linear Advance                                                    |   1330|
-  Ретракт                                                           |   1581|пока ВЫКЛ
-  Расширенная пауза                                                 |   1640|
-  FILAMENT_CHANGE_UNLOAD_LENGTH                                     |   1647|
+  X Y Z_HOME_BUMP_MM                                                |    522|
+  HOME_AFTER_DEACTIVATE                                             |    666|
+  M73 прогресс LCD_SET_PROGRESS_MANUALLY                            |    908|
+  BABYSTEPPING                                                      |   1322|
+  Linear Advance                                                    |   1369|
+  FWRETRACT                                                         |   1627|пока ВЫКЛ
+  Расширенная пауза                                                 |   1686|
+  FILAMENT_CHANGE_UNLOAD_LENGTH                                     |   1693|
 
 ### Графика
 [Конвертер графики](http://marlinfw.org/tools/u8glib/converter.html)<br/>
@@ -108,3 +110,6 @@ https://escope.de/posts/sapphire-pro-marlin/<br/>
  - Erik van der Zalm [[@ErikZalm](https://github.com/ErikZalm)] - Netherlands &nbsp; [![Flattr Erik](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=ErikZalm&url=https://github.com/MarlinFirmware/Marlin&title=Marlin&language=&tags=github&category=software)
 ## С графикой помог
  - Korbinian Heel [[@inib](https://github.com/inib)] https://escope.de/posts/sapphire-pro-marlin/
+## EEPROM --> SPI Flash [[@sobieh][https://github.com/sobieh]
+ - https://github.com/inib/Marlin/pull/7
+ 
