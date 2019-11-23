@@ -1,10 +1,11 @@
 # Marlin для TwoTrees Sapphire Pro (MKS Robin Nano STM32F103VET6)
 ## Версия марлин - 2.0.x bugfix, обновлена 23.11.2019
-### Настройки сохраняются в SPI Flash (см. Marlin2/src/HAL/HAL_STM32F1/persistent_store_spi_flash.cpp)
 
 # Внимание!
-## Драйвера Z & E заменены на 2208
-### Баг №1 - произвольное движение каретки при печати. **Перестал проявляться**. Буду проверять еще.
+### Драйвера Z & E заменены на 2208
+### Настроен сенсор автоуровня емкостный
+### Настройки сохраняются в SPI Flash (см. Marlin2/src/HAL/HAL_STM32F1/persistent_store_spi_flash.cpp), спасибо [[@sobieh](https://github.com/sobieh)]
+~Баг №1 - произвольное движение каретки при печати~
 
 ### С графикой помог Korbinian Heel [[@inib](https://github.com/inib)]
 https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT<br/>
@@ -110,6 +111,6 @@ https://escope.de/posts/sapphire-pro-marlin/<br/>
  - Erik van der Zalm [[@ErikZalm](https://github.com/ErikZalm)] - Netherlands &nbsp; [![Flattr Erik](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=ErikZalm&url=https://github.com/MarlinFirmware/Marlin&title=Marlin&language=&tags=github&category=software)
 ## С графикой помог
  - Korbinian Heel [[@inib](https://github.com/inib)] https://escope.de/posts/sapphire-pro-marlin/
-## EEPROM --> SPI Flash [[@sobieh][https://github.com/sobieh]
+## EEPROM --> SPI Flash [[@sobieh](https://github.com/sobieh)]
  - https://github.com/inib/Marlin/pull/7
  
