@@ -58,7 +58,7 @@
   X Y Z_HOME_BUMP_MM                                                |    522|
   HOME_AFTER_DEACTIVATE                                             |    666|
   M73 прогресс LCD_SET_PROGRESS_MANUALLY                            |    908|
-  BABYSTEPPING                                                      |   1322|
+  BABYSTEPPING                                                      |   1322|++
   Linear Advance                                                    |   1369|
   FWRETRACT                                                         |   1627|пока ВЫКЛ
   Расширенная пауза                                                 |   1686|
