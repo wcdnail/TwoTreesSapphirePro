@@ -1,11 +1,11 @@
 # Marlin для TwoTrees Sapphire Pro (MKS Robin Nano STM32F103VET6)
 ## Версия марлин - 2.0.x bugfix, обновлена 23.11.2019
 
-# Внимание!
-### Драйвера Z & E заменены на 2208
-### Настроен сенсор автоуровня емкостный
-### Настройки сохраняются в SPI Flash (см. Marlin2/src/HAL/HAL_STM32F1/persistent_store_spi_flash.cpp), спасибо [[@sobieh](https://github.com/sobieh)]
-~Баг №1 - произвольное движение каретки при печати~
+### Внимание!
+ - ~Баг №1 - произвольное движение каретки при печати~
+ - Драйвера Z & E заменены на 2208
+ - Настроен сенсор автоуровня емкостный
+ - Настройки сохраняются в SPI Flash (см. Marlin2/src/HAL/HAL_STM32F1/persistent_store_spi_flash.cpp), спасибо [[@sobieh](https://github.com/sobieh)]
 
 ### С графикой помог Korbinian Heel [[@inib](https://github.com/inib)]
 https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT<br/>
