@@ -38,23 +38,16 @@
 //
 #define DISABLE_DEBUG
 
+// Testing - not working yet
+#define SPI_FLASH_EEPROM_EMULATION
+#define SPI_FLASH_EEPROM_OFFSET 0x700000
+#define SPI_FLASH_DEVICE 2
+#define SPI_FLASH_CS_PIN PB12
+
 //
 // Note: MKS Robin board is using SPI2 interface.
 //
 #define SPI_MODULE 2
-
-//
-// PWM
-//
-//#define NUM_SERVOS        1
-
-// Z- as servo, Z+ as Z- (may need to remove the C35 filter cap and short R45 resistor)
-//#define SERVO0_PIN        PA11   // Pulled up PWM pin (3.3V or 0)may need to remove the C35 filter cap and short R45 resistor. 
-//#define SERVO0_TIMER_NUM  1      // General or Adv. timer to use for the servo PWM.
-
-// E1 STEP pin as servo, Z- as Z-
-#define SERVO0_PIN        PA6    // E1 STP PA6 TIM(8,3,1?), E1 DIR PA1 TIM(2,5), E1 EN PA3 TIM(2,5) (TIM2,5 might be reserved)
-//#define SERVO0_TIMER_NUM  3      // These pins are not 5v tolerant. Add 4.7k-10k pullup to 3.3v
 
 //
 // Limit Switches
@@ -87,29 +80,29 @@
 #define E0_STEP_PIN        PD6
 #define E0_DIR_PIN         PD3
 
-#define E1_ENABLE_PIN      PA3
-#define E1_STEP_PIN        PA6
-#define E1_DIR_PIN         PA1
+//#define E1_ENABLE_PIN      PA3
+//#define E1_STEP_PIN        PA6
+//#define E1_DIR_PIN         PA1
 
 //
 // Temperature Sensors
 //
-#define TEMP_0_PIN         PC1   // TH1
-#define TEMP_1_PIN         PC2   // TH2
-#define TEMP_BED_PIN       PC0   // TB1
+#define TEMP_0_PIN            PC1   // TH1
+#define TEMP_CHAMBER_PIN      PC2   // TH2 reused as chamber temp sensor
+
+//#define TEMP_1_PIN          PC2   // TH2
+
+#define TEMP_BED_PIN          PC0   // TB1
 
 //
 // Heaters / Fans
 //
 #define HEATER_0_PIN       PC3   // HEATER1
-#if HOTENDS == 1
-  #define FAN1_PIN         -1	   // temporary turn OFF second FAN
-#else
-  #define HEATER_1_PIN     PB0
-#endif
+//#define HEATER_1_PIN       PB0   // HEATER2 reused as fan pin
 #define HEATER_BED_PIN     PA0   // HOT BED
 
 #define FAN_PIN            PB1   // FAN
+#define HOTEND_FAN_PIN       PB0 // Hotend fan on Heater2
 
 //
 // Thermocouples
@@ -129,16 +122,7 @@
 // LCD / Controller
 //
 #define BEEPER_PIN         PC5
-//
-// Use the on-board card socket labeled TF_CARD_SOCKET
-//
-#define SS_PIN           PC11
-#define SCK_PIN          PC12
-#define MOSI_PIN         PD2
-#define MISO_PIN         PC8
-#define SD_DETECT_PIN    PD12
-#define SDSS             SS_PIN
-#define SDIO_SUPPORT
+#define SD_DETECT_PIN      PD12
 
 /**
  * Note: MKS Robin TFT screens use various TFT controllers.
@@ -146,31 +130,27 @@
  * to let the bootloader init the screen.
  */
 #if ENABLED(FSMC_GRAPHICAL_TFT)
-  //#define FSMC_CS_PIN        PD7    // NE4
-  //#define FSMC_RS_PIN        PD11   // A0
+  //@
+  #define DOGLCD_MOSI -1 // prevent redefine Conditionals_post.h
+  #define DOGLCD_SCK -1
 
-  //#define LCD_RESET_PIN      PC6
-  #define NO_LCD_REINIT             // Suppress LCD re-initialization
+  #define FSMC_CS_PIN        PD7    // NE4
+  #define FSMC_RS_PIN        PD11   // A0
+
+  #define LCD_USE_DMA_FSMC //
+  #define FSMC_DMA_DEV DMA2
+  #define FSMC_DMA_CHANNEL DMA_CH5
+
+  //#define LCD_RESET_PIN      PF6
+  //#define NO_LCD_REINIT             // Suppress LCD re-initialization
 
   #define LCD_BACKLIGHT_PIN  PD13
 
   #if ENABLED(TOUCH_BUTTONS)
-	#define BTN_ENC          PC13   // Not connected. TODO: Replace this hack to enable button code
-    #define FSMC_CS_PIN      PD7    // NE4
-    #define FSMC_RS_PIN      PD11   // A0
+    //@
     #define TOUCH_CS_PIN     PA7
-    #define TOUCH_SCK_PIN    PB13   // pin 52
-    #define TOUCH_MOSI_PIN   PB15   //PB14  // pin 53
-    #define TOUCH_MISO_PIN   PB14   //PB15  // pin 54
-    //#define TOUCH_INT_PIN  PC6   // pin 63 (PenIRQ coming from ADS7843)
-
-    #define LCD_USE_DMA_FSMC   // Use DMA transfers to send data to the TFT
-    #define FSMC_DMA_DEV     DMA2
-    #define FSMC_DMA_CHANNEL DMA_CH5
-    #define BTN_EN1          -1    // Real pin is needed to enable encoder's push button
-    #define BTN_EN2          -1    // functionality used by touch screen
-
-    #define DOGLCD_MOSI      -1  // Prevent auto-define by Conditionals_post.h
-    #define DOGLCD_SCK       -1
+    #define TOUCH_SCK_PIN PB13
+    #define TOUCH_MOSI_PIN PB15
+    #define TOUCH_MISO_PIN PB14
   #endif
 #endif
