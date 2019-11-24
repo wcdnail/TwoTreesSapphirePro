@@ -39,12 +39,13 @@
   Шаг и ускорение DEFAULT_AXIS_STEPS_PER_UNIT                       |    743|M302 P1 (disable cold extrusion checking)
   INVERT_ * _DIR                                                    |   1051|**INVERT_Z_DIR true** **INVERT_E0_DIR true**
   Сенсор окончания филамента FILAMENT_RUNOUT_SENSOR                 |   1138|ВЫКЛ
-  Калибровка стола AUTO_BED_LEVELING_BILINEAR                       |   1202|
+  Калибровка стола AUTO_BED_LEVELING_BILINEAR                       |   1202|ВЫКЛ
+  Калибровка стола AUTO_BED_LEVELING_UBL                            |   1203|
   Калибровка стола MESH_BED_LEVELING                                |   1204|ВЫКЛ
   Калибровка стола MESH_BED_LEVELING настройки                      |   1297|ВЫКЛ
   Калибровка стола LCD_BED_LEVELING                                 |   1310|
   Калибровка стола LEVEL_BED_CORNERS                                |   1320|
-  EEPROM_SETTINGS                                                   |   1444|
+  EEPROM_SETTINGS                                                   |   1444|Сохраняет в SPI Flash
   Настройка пред-нагрева PREHEAT_*                                  |   1480|PREHEAT_1_* : PET-G 215/75 PREHEAT_2_* : ABS 230/90
   Парковка хот-энда NOZZLE_PARK_FEATURE                             |   1502|
   Язык интерфейса LCD_LANGUAGE                                      |   1623|Русский
