@@ -5,11 +5,10 @@ M501
 M190 S75
 M104 S210
 
-M851 Z-0.6      ; Установить смещение по Z
+M851 Z-0.54     ; Установить смещение по Z
 G28             ; Home XYZ.
 G29 P1          ; Do automated probing of the bed.
 G29 P3 T        ; Repeat until all mesh points are filled in.
-
 G29 T           ; View the Z compensation values.
 G29 S1          ; Save UBL mesh points to EEPROM.
 G29 F 10.0      ; Set Fade Height for correction at 10.0 mm.
