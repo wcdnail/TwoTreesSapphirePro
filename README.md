@@ -1,5 +1,5 @@
 # Marlin для TwoTrees Sapphire Pro
-## Версия марлин - 2.0.x bugfix, обновлена 23.11.2019
+## Версия марлин - 2.0.x, обновлена 06.12.2019
 
 ### Внимание!
  - MKS Robin Nano - STM32F103VET6
