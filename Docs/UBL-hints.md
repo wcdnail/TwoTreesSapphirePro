@@ -5,7 +5,7 @@ M501
 M190 S75
 M104 S210
 
-M851 Z-0.54     ; Установить смещение по Z
+M851 Z-0.50     ; Установить смещение по Z
 G28             ; Home XYZ.
 G29 P1          ; Do automated probing of the bed.
 G29 P3 T        ; Repeat until all mesh points are filled in.
@@ -16,7 +16,7 @@ G29 A           ; Activate the UBL System.
 M500            ; Save current setup. WARNING: UBL will be active at power up, before any `G28`.
 
 G28 
-G26 B65 H210 F1.75 L0.3 S1 
+G26 B60 H210 F1.75 L0.4 S1 
  – B температура нагрева стола
  – H температура нагрева экструдера
  – F диаметр филамента
