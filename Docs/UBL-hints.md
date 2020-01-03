@@ -1,19 +1,17 @@
-M502
-M500
-M501
+M190 S80        ; Греем стол
+M104 S230       ; Греем хот-енд
 
-M190 S75
-M104 S210
+M502            ; Сбрасываем текущие настройки
+M500            ; Сохраняем текущие настройки
+M501            ; Выводим текущие настройки
+M851 Z-0.7      ; Установить смещение по Z
 
-M851 Z-0.50     ; Установить смещение по Z
-G28             ; Home XYZ.
+G28
 G29 P1          ; Do automated probing of the bed.
-G29 P3 T        ; Repeat until all mesh points are filled in.
 G29 T           ; View the Z compensation values.
 G29 S1          ; Save UBL mesh points to EEPROM.
-G29 F 10.0      ; Set Fade Height for correction at 10.0 mm.
 G29 A           ; Activate the UBL System.
-M500            ; Save current setup. WARNING: UBL will be active at power up, before any `G28`.
+M500            ; Сохраняем текущие настройки. WARNING: UBL will be active at power up, before any `G28`.
 
 G28 
 G26 B60 H210 F1.75 L0.4 S1 
