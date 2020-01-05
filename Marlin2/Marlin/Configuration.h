@@ -740,8 +740,8 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-//@ settings from 1.0.3 stock firmware [E подправлен]
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.3, 80.4, 1600, 411.1 }
+//@ settings from 1.0.3 stock firmware [E подправлен] (Enable cold extrusion: M302 S0)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.3, 80.4, 1600, 406.68 }
 
 /**
  * Default Max Feed Rate (mm/s)
