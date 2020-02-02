@@ -21,46 +21,15 @@
  */
 #pragma once
 
-<<<<<<< HEAD:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_3.h
-#define BOARD_INFO_NAME "BIGTREE SKR 1.3"
-
-/**
- * Limit Switches
- *
- * For Stallguard homing to max swap the min / max pins so
- * the MAX physical connectors can be used for other things.
- */
-#if X_HOME_DIR == -1 || !X_STALL_SENSITIVITY
-  #define X_MIN_PIN          P1_29   // X_MIN
-  #define X_MAX_PIN          P1_28   // X_MAX
-#else
-  #define X_MIN_PIN          P1_28   // X_MAX
-  #define X_MAX_PIN          P1_29   // X_MIN
+#ifndef BOARD_INFO_NAME
+  #define BOARD_INFO_NAME "BIGTREE SKR 1.4"
 #endif
-
-#if Y_HOME_DIR == -1 || !Y_STALL_SENSITIVITY
-  #define Y_MIN_PIN          P1_27   // Y_MIN
-  #define Y_MAX_PIN          P1_26   // Y_MAX
-#else
-  #define Y_MIN_PIN          P1_26   // Y_MAX
-  #define Y_MAX_PIN          P1_27   // Y_MIN
-#endif
-
-#if Z_HOME_DIR == -1 || !Z_STALL_SENSITIVITY
-  #define Z_MIN_PIN          P1_25   // Z_MIN
-  #define Z_MAX_PIN          P1_24   // Z_MAX
-#else
-  #define Z_MIN_PIN          P1_24   // Z_MAX
-  #define Z_MAX_PIN          P1_25   // Z_MIN
-=======
-#define BOARD_INFO_NAME "BIGTREE SKR 1.4"
 
 //
 // SD Connection
 //
 #ifndef SDCARD_CONNECTION
   #define SDCARD_CONNECTION LCD
->>>>>>> remotes/marlin/2.0.x:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_4.h
 #endif
 
 //
@@ -69,16 +38,51 @@
 #define SERVO0_PIN         P2_00
 
 //
-<<<<<<< HEAD:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_3.h
-=======
-// Limit Switches
+// TMC StallGuard DIAG pins
 //
-#define X_STOP_PIN         P1_29
-#define Y_STOP_PIN         P1_28
-#define Z_STOP_PIN         P1_27
+#define X_DIAG_PIN         P1_29   // X-STOP
+#define Y_DIAG_PIN         P1_28   // Y-STOP
+#define Z_DIAG_PIN         P1_27   // Z-STOP
+#define E0_DIAG_PIN        P1_26   // E0DET
+#define E1_DIAG_PIN        P1_25   // E1DET
 
 //
->>>>>>> remotes/marlin/2.0.x:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_4.h
+// Limit Switches
+//
+#if X_STALL_SENSITIVITY
+  #define X_STOP_PIN       X_DIAG_PIN
+  #if X_HOME_DIR < 0
+    #define X_MAX_PIN      P1_26   // E0DET
+  #else
+    #define X_MIN_PIN      P1_26   // E0DET
+  #endif
+#else
+  #define X_STOP_PIN       P1_29   // X-STOP
+#endif
+
+#if Y_STALL_SENSITIVITY
+  #define Y_STOP_PIN       Y_DIAG_PIN
+  #if Y_HOME_DIR < 0
+    #define Y_MAX_PIN      P1_25   // E1DET
+  #else
+    #define Y_MIN_PIN      P1_25   // E1DET
+  #endif
+#else
+  #define Y_STOP_PIN       P1_28   // Y-STOP
+#endif
+
+#if Z_STALL_SENSITIVITY
+  #define Z_STOP_PIN       Z_DIAG_PIN
+  #if Z_HOME_DIR < 0
+    #define Z_MAX_PIN      P1_24   // PWRDET
+  #else
+    #define Z_MIN_PIN      P1_24   // PWRDET
+  #endif
+#else
+  #define Z_STOP_PIN       P1_27   // Z-STOP
+#endif
+
+//
 // Z Probe (when not Z_MIN_PIN)
 //
 #ifndef Z_MIN_PROBE_PIN
@@ -88,21 +92,21 @@
 //
 // Filament Runout Sensor
 //
-#define FIL_RUNOUT_PIN     P1_26
-#define FIL_RUNOUT2_PIN    P1_25
+#define FIL_RUNOUT_PIN     P1_26   // E0DET
+#define FIL_RUNOUT2_PIN    P1_25   // E1DET
 
 //
 // Power Supply Control
 //
 #ifndef PS_ON_PIN
-  #define PS_ON_PIN        P1_00
+  #define PS_ON_PIN        P1_00   // PWRDET
 #endif
 
 //
 // Power Loss Detection
 //
 #ifndef POWER_LOSS_PIN
-  #define POWER_LOSS_PIN   P1_00
+  #define POWER_LOSS_PIN   P1_00   // PWRDET
 #endif
 
 //
@@ -136,12 +140,9 @@
   #define E0_CS_PIN        P1_04
 #endif
 
-<<<<<<< HEAD:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_3.h
-=======
 #define E1_STEP_PIN        P1_15
 #define E1_DIR_PIN         P1_14
 #define E1_ENABLE_PIN      P1_16
->>>>>>> remotes/marlin/2.0.x:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_4.h
 #ifndef E1_CS_PIN
   #define E1_CS_PIN        P1_01
 #endif
@@ -211,8 +212,6 @@
 
   // Reduce baud rate to improve software serial reliability
   #define TMC_BAUD_RATE 19200
-<<<<<<< HEAD:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_3.h
-=======
 #endif
 
 //
@@ -220,77 +219,35 @@
 //
 #if SD_CONNECTION_IS(LCD)
   #define SS_PIN           P0_16
->>>>>>> remotes/marlin/2.0.x:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_4.h
 #endif
 
 /**
- *               _____                                              _____
- *           NC | · · | GND                                     5V | · · | GND
- *        RESET | · · | 1.31 (SD_DETECT)             (LCD_D7) 1.23 | · · | 1.22 (LCD_D6)
- *  (MOSI) 0.18 | · · | 3.25 (BTN_EN2)               (LCD_D5) 1.21 | · · | 1.20 (LCD_D4)
- * (SD_SS) 0.16 | · · | 3.26 (BTN_EN1)               (LCD_RS) 1.19 | · · | 1.18 (LCD_EN)
- *   (SCK) 0.15 | · · | 0.17 (MISO)                 (BTN_ENC) 0.28 | · · | 1.30 (BEEPER)
- *               -----                                              -----
- *               EXP2                                               EXP1
+ *              _____                                             _____
+ *          NC | · · | GND                                    5V | · · | GND
+ *       RESET | · · | 1.31(SD_DETECT)             (LCD_D7) 1.23 | · · | 1.22 (LCD_D6)
+ *  (MOSI)0.18 | · · | 3.25(BTN_EN2)               (LCD_D5) 1.21 | · · | 1.20 (LCD_D4)
+ * (SD_SS)0.16 | · · | 3.26(BTN_EN1)               (LCD_RS) 1.19 | · · | 1.18 (LCD_EN)
+ *   (SCK)0.15 | · · | 0.17(MISO)                 (BTN_ENC) 0.28 | · · | 1.30 (BEEPER)
+ *              -----                                             -----
+ *              EXP2                                              EXP1
  */
 #if HAS_SPI_LCD
-<<<<<<< HEAD:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_3.h
-=======
   #define BTN_ENC          P0_28   // (58) open-drain
->>>>>>> remotes/marlin/2.0.x:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_4.h
 
-  #if ENABLED(ANET_FULL_GRAPHICS_LCD)
-
-    #error "CAUTION! ANET_FULL_GRAPHICS_LCD requires wiring modifications. See 'pins_BTT_SKR_V1_3.h' for details. Comment out this line to continue."
-
-   /**
-    * 1. Cut the tab off the LCD connector so it can be plugged into the "EXP1" connector the other way.
-    * 2. Swap the LCD's +5V (Pin2) and GND (Pin1) wires. (This is the critical part!)
-    * 3. Rewire the CLK Signal (LCD Pin9) to LCD Pin7. (LCD Pin9 remains open because this pin is open drain.)
-    * 4. A wire is needed to connect the Reset switch at J3 (LCD Pin7) to EXP2 (Pin3) on the board.
-    *
-    * !!! If you are unsure, ask for help! Your motherboard may be damaged in some circumstances !!!
-    *
-    * The ANET_FULL_GRAPHICS_LCD connector plug:
-    *
-    *                  BEFORE                          AFTER
-    *                  _____                           _____
-    *           GND 1 | · · |  2 5V              5V 1 | · · |  2 GND
-    *            CS 3 | · · |  4 BTN_EN2         CS 3 | · · |  4 BTN_EN2
-    *           SID 5 | · · |  6 BTN_EN1        SID 5 | · · |  6 BTN_EN1
-    *          open 7 | · · |  8 BTN_ENC        CLK 7 | · · |  8 BTN_ENC
-    *           CLK 9 | · · | 10 Beeper        open 9 | · · | 10 Beeper
-    *                  -----                           -----
-    *                   LCD                             LCD
-    */
-
-    #define LCD_PINS_RS    P1_23
-
-    #define BTN_EN1        P1_20
-    #define BTN_EN2        P1_22
-    #define BTN_ENC        P1_18
-
-    #define LCD_PINS_ENABLE P1_21
-    #define LCD_PINS_D4    P1_19
-
-  #elif ENABLED(CR10_STOCKDISPLAY)
-
+  #if ENABLED(CR10_STOCKDISPLAY)
     #define LCD_PINS_RS    P1_22
 
     #define BTN_EN1        P1_18
     #define BTN_EN2        P1_20
-    #define BTN_ENC        P0_28   // (58) open-drain
 
     #define LCD_PINS_ENABLE P1_23
     #define LCD_PINS_D4    P1_21
 
-  #else // !CR10_STOCKDISPLAY
-
+  #else
     #define LCD_PINS_RS    P1_19
 
     #define BTN_EN1        P3_26   // (31) J3-2 & AUX-4
     #define BTN_EN2        P3_25   // (33) J3-4 & AUX-4
-    #define BTN_ENC        P0_28   // (58) open-drain
 
     #define LCD_PINS_ENABLE P1_18
     #define LCD_PINS_D4    P1_20
@@ -328,17 +285,10 @@
     #else // !FYSETC_MINI_12864
 
       #if ENABLED(MKS_MINI_12864)
-<<<<<<< HEAD:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_3.h
-        #define DOGLCD_CS    P1_21
-        #define DOGLCD_A0    P1_22
-        #define DOGLCD_SCK   P0_15
-        #define DOGLCD_MOSI  P0_18
-=======
         #define DOGLCD_CS   P1_21
         #define DOGLCD_A0   P1_22
         #define DOGLCD_SCK  P0_15
         #define DOGLCD_MOSI P0_18
->>>>>>> remotes/marlin/2.0.x:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_4.h
         #define FORCE_SOFT_SPI
       #endif
 
@@ -350,25 +300,15 @@
 
     #endif // !FYSETC_MINI_12864
 
-  #endif // !CR10_STOCKDISPLAY
+  #endif
 
 #endif // HAS_SPI_LCD
 
 //
 // Neopixel LED
 //
-<<<<<<< HEAD:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_3.h
-
-#ifndef SDCARD_CONNECTION
-  #define SDCARD_CONNECTION LCD
-#endif
-
-#if SD_CONNECTION_IS(LCD)
-  #define SS_PIN           P0_16
-=======
 #ifndef NEOPIXEL_PIN
   #define NEOPIXEL_PIN      P1_24
->>>>>>> remotes/marlin/2.0.x:Marlin/src/pins/lpc1768/pins_BTT_SKR_V1_4.h
 #endif
 
 /**
@@ -378,6 +318,3 @@
  *   P0_27  (57) (Open collector)
  *   P0_28  (58) (Open collector)
  */
-
-// Include common SKR pins
-#include "pins_BTT_SKR.h"

@@ -149,7 +149,7 @@
 // @section extruder
 
 // This defines the number of extruders
-// :[1, 2, 3, 4, 5, 6]
+// :[1, 2, 3, 4, 5, 6, 7, 8]
 #define EXTRUDERS 1
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
@@ -367,7 +367,8 @@
  *    -1 : thermocouple with AD595
  *     0 : not used
  *     1 : 100k thermistor - best choice for EPCOS 100k (4.7k pullup)
- *   331 : (3.3V scaled thermistor 1 table)
+ *   331 : (3.3V scaled thermistor 1 table for MEGA)
+ *   332 : (3.3V scaled thermistor 1 table for DUE)
  *     2 : 200k thermistor - ATC Semitec 204GT-2 (4.7k pullup)
  *     3 : Mendel-parts thermistor (4.7k pullup)
  *     4 : 10k thermistor !! do not use it for a hotend. It gives bad resolution at high temp. !!
@@ -385,7 +386,8 @@
  *    13 : 100k Hisens 3950  1% up to 300°C for hotend "Simple ONE " & "Hotend "All In ONE"
  *    15 : 100k thermistor calibration for JGAurora A5 hotend
  *    18 : ATC Semitec 204GT-2 (4.7k pullup) Dagoma.Fr - MKS_Base_DKU001327
- *    20 : Pt100 with circuit in the Ultimainboard V2.x
+ *    20 : Pt100 with circuit in the Ultimainboard V2.x with 5v excitation (AVR)
+ *    21 : Pt100 with circuit in the Ultimainboard V2.x with 3.3v excitation (STM32 \ LPC176x....)
  *   201 : Pt100 with circuit in Overlord, similar to Ultimainboard V2.x
  *    60 : 100k Maker's Tool Works Kapton Bed Thermistor beta=3950
  *    61 : 100k Formbot / Vivedino 3950 350C thermistor 4.7k pullup
@@ -419,8 +421,10 @@
 #define TEMP_SENSOR_3 0
 #define TEMP_SENSOR_4 0
 #define TEMP_SENSOR_5 0
-//@
+#define TEMP_SENSOR_6 0
+#define TEMP_SENSOR_7 0
 #define TEMP_SENSOR_BED 1
+#define TEMP_SENSOR_PROBE 0
 #define TEMP_SENSOR_CHAMBER 0
 
 // Dummy thermistor constant temperature readings, for use with 998 and 999
@@ -448,6 +452,8 @@
 #define HEATER_3_MINTEMP   5
 #define HEATER_4_MINTEMP   5
 #define HEATER_5_MINTEMP   5
+#define HEATER_6_MINTEMP   5
+#define HEATER_7_MINTEMP   5
 #define BED_MINTEMP        5
 
 // Above this temperature the heater will be switched off.
@@ -459,7 +465,9 @@
 #define HEATER_3_MAXTEMP 275
 #define HEATER_4_MAXTEMP 275
 #define HEATER_5_MAXTEMP 275
-#define BED_MAXTEMP      125
+#define HEATER_6_MAXTEMP 275
+#define HEATER_7_MAXTEMP 275
+#define BED_MAXTEMP      150
 
 //===========================================================================
 //============================= PID Settings ================================
@@ -675,12 +683,13 @@
  *
  * A4988 is assumed for unspecified drivers.
  *
- * Options: A4988, A5984, DRV8825, LV8729, L6470, TB6560, TB6600, TMC2100,
+ * Options: A4988, A5984, DRV8825, LV8729, L6470, L6474, POWERSTEP01,
+ *          TB6560, TB6600, TMC2100,
  *          TMC2130, TMC2130_STANDALONE, TMC2160, TMC2160_STANDALONE,
  *          TMC2208, TMC2208_STANDALONE, TMC2209, TMC2209_STANDALONE,
  *          TMC26X,  TMC26X_STANDALONE,  TMC2660, TMC2660_STANDALONE,
  *          TMC5130, TMC5130_STANDALONE, TMC5160, TMC5160_STANDALONE
- * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
+ * :['A4988', 'A5984', 'DRV8825', 'LV8729', 'L6470', 'L6474', 'POWERSTEP01', 'TB6560', 'TB6600', 'TMC2100', 'TMC2130', 'TMC2130_STANDALONE', 'TMC2160', 'TMC2160_STANDALONE', 'TMC2208', 'TMC2208_STANDALONE', 'TMC2209', 'TMC2209_STANDALONE', 'TMC26X', 'TMC26X_STANDALONE', 'TMC2660', 'TMC2660_STANDALONE', 'TMC5130', 'TMC5130_STANDALONE', 'TMC5160', 'TMC5160_STANDALONE']
  */
 //@ Sapphire Pro setup
 #define X_DRIVER_TYPE  TMC2208_STANDALONE
@@ -690,12 +699,15 @@
 //#define Y2_DRIVER_TYPE A4988
 //#define Z2_DRIVER_TYPE A4988
 //#define Z3_DRIVER_TYPE A4988
+//#define Z4_DRIVER_TYPE A4988
 #define E0_DRIVER_TYPE TMC2208_STANDALONE
 //#define E1_DRIVER_TYPE A4988
 //#define E2_DRIVER_TYPE A4988
 //#define E3_DRIVER_TYPE A4988
 //#define E4_DRIVER_TYPE A4988
 //#define E5_DRIVER_TYPE A4988
+//#define E6_DRIVER_TYPE A4988
+//#define E7_DRIVER_TYPE A4988
 
 // Enable this feature if all enabled endstop pins are interrupt-capable.
 // This will remove the need to poll the interrupt pins, saving many CPU cycles.
@@ -740,8 +752,8 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-//@ settings from 1.0.3 stock firmware [E подправлен] (Enable cold extrusion: M302 S0)
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.3, 80.4, 1600, 406.68 }
+//@ settings from 1.0.3 stock firmware [E подправлен]
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80.3, 80.4, 1600, 411.1 }
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -930,6 +942,13 @@
   #define Z_PROBE_RETRACT_X X_MAX_POS
 #endif
 
+// Duet Smart Effector (for delta printers) - https://bit.ly/2ul5U7J
+// When the pin is defined you can use M672 to set/reset the probe sensivity.
+//#define DUET_SMART_EFFECTOR
+#if ENABLED(DUET_SMART_EFFECTOR)
+  #define SMART_EFFECTOR_MOD_PIN  -1  // Connect a GPIO pin to the Smart Effector MOD pin
+#endif
+
 //
 // For Z_PROBE_ALLEN_KEY see the Delta example configurations.
 //
@@ -954,9 +973,10 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { 0, -53, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 0, -55, 0 }
 
-// Certain types of probes need to stay away from edges
+// Most probes should stay away from the edges of the bed, but
+// with NOZZLE_AS_PROBE this can be negative for a wider probing area.
 #define MIN_PROBE_EDGE 10
 
 // X and Y axis travel speed (mm/m) between probes
@@ -998,7 +1018,7 @@
 #define Z_CLEARANCE_DEPLOY_PROBE   5 // Z Clearance for Deploy/Stow
 #define Z_CLEARANCE_BETWEEN_PROBES  3 // Z Clearance between probe points
 #define Z_CLEARANCE_MULTI_PROBE     2 // Z Clearance between multiple probes
-#define Z_AFTER_PROBING           5 // Z position after probing is done
+#define Z_AFTER_PROBING           10 // Z position after probing is done
 
 #define Z_PROBE_LOW_POINT          -2 // Farthest distance below the trigger-point to go before stopping
 
@@ -1068,6 +1088,8 @@
 #define INVERT_E3_DIR false
 #define INVERT_E4_DIR false
 #define INVERT_E5_DIR false
+#define INVERT_E6_DIR false
+#define INVERT_E7_DIR false
 
 // @section homing
 
@@ -1222,7 +1244,7 @@
  * Turn on with the command 'M111 S32'.
  * NOTE: Requires a lot of PROGMEM!
  */
-#define DEBUG_LEVELING_FEATURE
+//#define DEBUG_LEVELING_FEATURE
 
 #if ANY(MESH_BED_LEVELING, AUTO_BED_LEVELING_BILINEAR, AUTO_BED_LEVELING_UBL)
   // Gradually reduce leveling correction until a set height is reached,
@@ -1283,11 +1305,11 @@
   //========================= Unified Bed Leveling ============================
   //===========================================================================
 
-  #define MESH_EDIT_GFX_OVERLAY     // Display a graphics overlay while editing the mesh
+  #define MESH_EDIT_GFX_OVERLAY   // Display a graphics overlay while editing the mesh
 
-  #define MESH_INSET 20             // Set Mesh bounds as an inset region of the bed (@ see ADV)
-  #define GRID_MAX_POINTS_X 5       // Don't use more than 15 points per axis, implementation limited.
-  #define GRID_MAX_POINTS_Y 4
+  #define MESH_INSET 20              // Set Mesh bounds as an inset region of the bed
+  #define GRID_MAX_POINTS_X 6      // Don't use more than 15 points per axis, implementation limited.
+  #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   #define UBL_MESH_EDIT_MOVES_Z     // Sophisticated users prefer no movement of nozzle
   #define UBL_SAVE_ACTIVE_ON_M500   // Save the currently active mesh in the current slot on M500
@@ -1319,7 +1341,7 @@
 #if ENABLED(LCD_BED_LEVELING)
   #define MESH_EDIT_Z_STEP  0.025 // (mm) Step size while manually probing Z axis.
   #define LCD_PROBE_Z_RANGE 4     // (mm) Z Range centered on Z_MIN_POS for LCD Z adjustment
-  #define MESH_EDIT_MENU        // Add a menu to edit mesh points
+  //#define MESH_EDIT_MENU        // Add a menu to edit mesh points
 #endif
 
 // Add a menu item to move between bed corners for manual bed adjustment
@@ -1348,8 +1370,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS (X_MIN_POS)
-#define MANUAL_Y_HOME_POS (Y_MAX_POS)
+#define MANUAL_X_HOME_POS X_MIN_POS
+#define MANUAL_Y_HOME_POS Y_MAX_POS
 //#define MANUAL_Z_HOME_POS 0
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
@@ -1466,11 +1488,6 @@
 #define BUSY_WHILE_HEATING            // Some hosts require "busy" messages even during heating
 
 //
-// M100 Free Memory Watcher
-//
-//#define M100_FREE_MEMORY_WATCHER    // Add M100 (Free Memory Watcher) to debug memory usage
-
-//
 // G20/G21 Inch mode support
 //
 //#define INCH_MODE_SUPPORT
@@ -1485,14 +1502,14 @@
 // Preheat Constants
 //@
 #define PREHEAT_1_LABEL      "ABS"
-#define PREHEAT_1_TEMP_HOTEND 230
-#define PREHEAT_1_TEMP_BED    100
+#define PREHEAT_1_TEMP_HOTEND 240
+#define PREHEAT_1_TEMP_BED    110
 #define PREHEAT_1_FAN_SPEED     0 // Value from 0 to 255
 
 //@
 #define PREHEAT_2_LABEL      "PLA"
-#define PREHEAT_2_TEMP_HOTEND 205
-#define PREHEAT_2_TEMP_BED     60
+#define PREHEAT_2_TEMP_HOTEND 210
+#define PREHEAT_2_TEMP_BED     75
 #define PREHEAT_2_FAN_SPEED     0 // Value from 0 to 255
 
 /**
@@ -1562,9 +1579,10 @@
   // Default number of triangles
   #define NOZZLE_CLEAN_TRIANGLES  3
 
-  // Specify positions as { X, Y, Z }
-  #define NOZZLE_CLEAN_START_POINT {  30, 30, (Z_MIN_POS + 1) }
-  #define NOZZLE_CLEAN_END_POINT   { 100, 60, (Z_MIN_POS + 1) }
+  // Specify positions for each tool as { { X, Y, Z }, { X, Y, Z } }
+  // Dual hotend system may use { {  -20, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) },  {  420, (Y_BED_SIZE / 2), (Z_MIN_POS + 1) }}
+  #define NOZZLE_CLEAN_START_POINT { {  30, 30, (Z_MIN_POS + 1) } }
+  #define NOZZLE_CLEAN_END_POINT   { { 100, 60, (Z_MIN_POS + 1) } }
 
   // Circular pattern radius
   #define NOZZLE_CLEAN_CIRCLE_RADIUS 6.5
@@ -1989,10 +2007,11 @@
 // FYSETC variant of the MINI12864 graphic controller with SD support
 // https://wiki.fysetc.com/Mini12864_Panel/
 //
-//#define FYSETC_MINI_12864_X_X  // Type C/D/E/F. No tunable RGB Backlight by default
-//#define FYSETC_MINI_12864_1_2  // Type C/D/E/F. Simple RGB Backlight (always on)
-//#define FYSETC_MINI_12864_2_0  // Type A/B. Discreet RGB Backlight
-//#define FYSETC_MINI_12864_2_1  // Type A/B. Neopixel RGB Backlight
+//#define FYSETC_MINI_12864_X_X    // Type C/D/E/F. No tunable RGB Backlight by default
+//#define FYSETC_MINI_12864_1_2    // Type C/D/E/F. Simple RGB Backlight (always on)
+//#define FYSETC_MINI_12864_2_0    // Type A/B. Discreet RGB Backlight
+//#define FYSETC_MINI_12864_2_1    // Type A/B. Neopixel RGB Backlight
+//#define FYSETC_GENERIC_12864_1_1 // Larger display with basic ON/OFF backlight.
 
 //
 // Factory display for Creality CR-10
@@ -2002,6 +2021,11 @@
 // (For CR-10 owners who want to replace the Melzi Creality board but retain the display)
 //
 //#define CR10_STOCKDISPLAY
+
+//
+// Ender-2 OEM display, a variant of the MKS_MINI_12864
+//
+//#define ENDER2_STOCKDISPLAY
 
 //
 // ANET and Tronxy Graphical Controller
@@ -2071,9 +2095,11 @@
 //=============================================================================
 
 //
-// DGUS Touch Display with DWIN OS
+// DGUS Touch Display with DWIN OS. (Choose one.)
 //
-//#define DGUS_LCD
+//#define DGUS_LCD_UI_ORIGIN
+//#define DGUS_LCD_UI_FYSETC
+//#define DGUS_LCD_UI_HIPRECY
 
 //
 // Touch-screen LCD for Malyan M200 printers
