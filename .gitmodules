@@ -1,0 +1,4 @@
+[submodule "MarlinSP"]
+	path = MarlinSP
+	url = git@github.com:wcdnail/Marlin.git
+	branch = SapphirePro
