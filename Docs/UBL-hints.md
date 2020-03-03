@@ -4,18 +4,19 @@ M104 S230       ; Греем хот-енд
 M502            ; Сбрасываем текущие настройки
 M500            ; Сохраняем текущие настройки
 M501            ; Выводим текущие настройки
-M851 Z-0.42     ; Установить смещение по Z
+M851 Z-0.3      ; Установить смещение по Z
 
 G28
 G29 P0          ; Zero Mesh Data
-G29 P1 U        ; Do automated probing of the bed.
+G29 T           ; View the Z compensation values.
+G29 P1          ; Do automated probing of the bed.
 G29 T           ; View the Z compensation values.
 G29 S1          ; Save UBL mesh points to EEPROM.
 G29 A           ; Activate the UBL System.
 M500            ; Сохраняем текущие настройки. WARNING: UBL will be active at power up, before any `G28`.
 
 G28 
-G26 B75 H230 F1.75 L0.2 S0.4
+G26 B65 H205 F1.75 L0.2 S0.4
  – B температура нагрева стола
  – H температура нагрева экструдера
  – F диаметр филамента
@@ -23,11 +24,12 @@ G26 B75 H230 F1.75 L0.2 S0.4
  - S диаметр сопла
 
 ;------------------------------------------
+G28
 G90                 ; Absolute positioning
-G1 Z10 F100         ; Safe Z moving
-G1 X110 Y110 F1000  ; Move to centre
+G1 Z10 F300         ; Safe Z moving
+G1 X110 Y135 F1500  ; Move to centre
 M48 P4 V2 E L2      ; Проверить работу датчика уровня
-
+M48 P4 V4 E S1 L3   ; Проверить работу датчика уровня
 
 ;------------------------------------------
 ;--- Setup and initial probing commands ---

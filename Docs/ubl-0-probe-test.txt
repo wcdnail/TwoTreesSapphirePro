@@ -1,0 +1,9 @@
+M48 Z-Probe Repeatability Test
+1 of 4: z: -0.056
+2 of 4: z: -0.043
+3 of 4: z: -0.048
+4 of 4: z: -0.045
+Finished!
+Mean: -0.047969 Min: -0.056 Max: -0.043 Range: 0.013
+Standard Deviation: 0.004768
+X:110.00 Y:110.00 Z:-0.05 E:0.00 Count A:17677 B:-11 Z:-74
