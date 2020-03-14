@@ -12,12 +12,12 @@ G29 T           ; View the Z compensation values.
 G29 P1          ; Do automated probing of the bed.
 G29 T           ; View the Z compensation values.
 G29 S1          ; Save UBL mesh points to EEPROM.
-G29 F 30.0      ; Set Fade Height for correction at 10.0 mm.
+G29 F 30.0      ; Set Fade Height for correction at 30.0 mm.
 G29 A           ; Activate the UBL System.
 M500            ; Сохраняем текущие настройки. WARNING: UBL will be active at power up, before any `G28`.
 
-G28 
-G26 B65 H205 F1.75 L0.2 S0.4
+G28
+G26 B60 H210 F1.75 L0.2 S0.4
  – B температура нагрева стола
  – H температура нагрева экструдера
  – F диаметр филамента
