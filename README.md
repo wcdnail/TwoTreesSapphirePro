@@ -1,20 +1,20 @@
 # Marlin для TwoTrees Sapphire Pro
-## Версия марлин - 2.1.x, обновлена 26.08.2022
+## Версия Марлин - 2.1.x, обновлена 26.08.2022
 
 ### Внимание!
  - MarlinSP - теперь подмодуль git
  - MKS Robin Nano - STM32F103VET6
- - ~Баг №1 - произвольное движение каретки при печати~
- - Драйвера Z & E заменены на 2208
- - Настроен сенсор автоуровня емкостный
+ - Баг №1 - произвольное движение каретки при печати - воспроизводится на модерновой гуйне TFT_LVGL_UI
+ - ~Драйвера Z & E заменены на 2208~
+ - ~Настроен сенсор автоуровня емкостный~ - в прошивке запрещен
  - Настройки сохраняются в SPI Flash (см. Marlin2/src/HAL/HAL_STM32F1/persistent_store_spi_flash.cpp), спасибо [[@sobieh](https://github.com/sobieh)]
- - С графикой помог Korbinian Heel [[@inib](https://github.com/inib)] https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT https://escope.de/posts/sapphire-pro-marlin/
+ - С графикой помог Korbinian Heel [[@inib](https://github.com/inib)] https://github.com/inib/Marlin/tree/2.0.X-SapphirePro-3.5TFT https://escope.de/posts/sapphire-pro-marlin/ - это уже в актуальной версии Марлин
 
 ### Собирать лучше всего с помощью Visual Studio Code + PlatformIO
 [Инструкция по установке Visual Studio Code + PlatformIO](https://docs.platformio.org/en/latest/ide/vscode.html)<br/>
 
 ### Прошивка SapphirePro:
-* После успешной сборки скопировать файл `MarlinSP\.pio\build\mks_robin_nano\Robin_nano.bin` на sd карту
+* После успешной сборки скопировать файл `MarlinSP\.pio\build\mks_robin_nano\Robin_nano35.bin` на sd карту и переименовать в `Robin_nano.bin`
 * Установить sd карту в принтер
 * Включить/перезагрузить принтер
 * Дождаться обновления
